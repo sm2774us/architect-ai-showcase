@@ -1,0 +1,6 @@
+{
+  "name": "ServiceNow Staff AI Engineer Showcase",
+  "description": "Interactive enterprise platform demonstrating Staff AI Engineer qualifications across ServiceNow AI Agent Studio, AI Control Tower, Skill Kit, Workflow Data Fabric, MCP & A2A multi-agent protocols, and OpenTelemetry observability.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
