@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Workflow,
   Database,
@@ -12,17 +12,17 @@ import {
   Play,
   Copy,
   Check,
-} from "lucide-react";
-import { SkillKitDefinition, CmdbCI } from "../types";
-import { skillKitList, mockCmdbList } from "../data/mockData";
+} from 'lucide-react';
+import { SkillKitDefinition, CmdbCI } from '../types';
+import { skillKitList, mockCmdbList } from '../data/mockData';
 
 export const SkillKitDataFabric: React.FC = () => {
-  const [activeSubTab, setActiveSubTab] = useState<"skill-kit" | "data-fabric">("skill-kit");
+  const [activeSubTab, setActiveSubTab] = useState<'skill-kit' | 'data-fabric'>('skill-kit');
   const [selectedSkill, setSelectedSkill] = useState<SkillKitDefinition>(skillKitList[0]);
   const [copied, setCopied] = useState(false);
 
   // Vector Search Simulator for Data Fabric
-  const [vectorQuery, setVectorQuery] = useState("connection pool exhaustion on customer portal");
+  const [vectorQuery, setVectorQuery] = useState('connection pool exhaustion on customer portal');
   const [cmdbList] = useState<CmdbCI[]>(mockCmdbList);
   const [isSearchingVector, setIsSearchingVector] = useState(false);
 
@@ -30,13 +30,26 @@ export const SkillKitDataFabric: React.FC = () => {
   const calculateSimilarity = (ci: CmdbCI, query: string) => {
     const qLower = query.toLowerCase();
     let score = 0.45;
-    if (qLower.includes("pool") || qLower.includes("db") || qLower.includes("database") || qLower.includes("postgres")) {
-      if (ci.class.includes("database")) score += 0.48;
+    if (
+      qLower.includes('pool') ||
+      qLower.includes('db') ||
+      qLower.includes('database') ||
+      qLower.includes('postgres')
+    ) {
+      if (ci.class.includes('database')) score += 0.48;
     }
-    if (qLower.includes("ingress") || qLower.includes("k8s") || qLower.includes("timeout") || qLower.includes("gateway")) {
-      if (ci.class.includes("kubernetes")) score += 0.46;
+    if (
+      qLower.includes('ingress') ||
+      qLower.includes('k8s') ||
+      qLower.includes('timeout') ||
+      qLower.includes('gateway')
+    ) {
+      if (ci.class.includes('kubernetes')) score += 0.46;
     }
-    if (qLower.includes("portal") && ci.parent_service.toLowerCase().includes("portal") || ci.parent_service.toLowerCase().includes("customer")) {
+    if (
+      (qLower.includes('portal') && ci.parent_service.toLowerCase().includes('portal')) ||
+      ci.parent_service.toLowerCase().includes('customer')
+    ) {
       score += 0.25;
     }
     return Math.min(0.98, score);
@@ -64,28 +77,29 @@ export const SkillKitDataFabric: React.FC = () => {
               Enterprise Skill Kit & Workflow Data Fabric
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
-              Architecting modular, reusable Skill Kits bound to ServiceNow's unified semantic data layer. Combines
-              transactional GlideRecord tables with real-time vector embeddings and strict ACL inheritance.
+              Architecting modular, reusable Skill Kits bound to ServiceNow's unified semantic data
+              layer. Combines transactional GlideRecord tables with real-time vector embeddings and
+              strict ACL inheritance.
             </p>
           </div>
 
           <div className="flex border border-slate-800 rounded-lg p-1 bg-slate-950 text-xs">
             <button
-              onClick={() => setActiveSubTab("skill-kit")}
+              onClick={() => setActiveSubTab('skill-kit')}
               className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                activeSubTab === "skill-kit"
-                  ? "bg-emerald-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-slate-200"
+                activeSubTab === 'skill-kit'
+                  ? 'bg-emerald-500 text-slate-950 font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               Skill Kit Studio
             </button>
             <button
-              onClick={() => setActiveSubTab("data-fabric")}
+              onClick={() => setActiveSubTab('data-fabric')}
               className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                activeSubTab === "data-fabric"
-                  ? "bg-emerald-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-slate-200"
+                activeSubTab === 'data-fabric'
+                  ? 'bg-emerald-500 text-slate-950 font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               Workflow Data Fabric
@@ -95,7 +109,7 @@ export const SkillKitDataFabric: React.FC = () => {
       </div>
 
       {/* SUBTAB 1: SKILL KIT STUDIO */}
-      {activeSubTab === "skill-kit" && (
+      {activeSubTab === 'skill-kit' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Skill List Sidebar */}
           <div className="lg:col-span-4 space-y-3">
@@ -116,18 +130,22 @@ export const SkillKitDataFabric: React.FC = () => {
                     onClick={() => setSelectedSkill(skill)}
                     className={`w-full text-left p-3 rounded-lg border transition-all ${
                       selectedSkill.id === skill.id
-                        ? "bg-emerald-950/50 border-emerald-500/40 text-emerald-300"
-                        : "bg-slate-950 border-slate-800/80 text-slate-300 hover:border-slate-700"
+                        ? 'bg-emerald-950/50 border-emerald-500/40 text-emerald-300'
+                        : 'bg-slate-950 border-slate-800/80 text-slate-300 hover:border-slate-700'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
                         {skill.category}
                       </span>
-                      <span className="text-[10px] text-slate-500 font-mono">Table: {skill.targetTable}</span>
+                      <span className="text-[10px] text-slate-500 font-mono">
+                        Table: {skill.targetTable}
+                      </span>
                     </div>
                     <div className="text-xs font-bold mt-1 text-white">{skill.name}</div>
-                    <p className="text-[10px] text-slate-400 mt-1 line-clamp-2">{skill.systemPrompt}</p>
+                    <p className="text-[10px] text-slate-400 mt-1 line-clamp-2">
+                      {skill.systemPrompt}
+                    </p>
                   </button>
                 ))}
               </div>
@@ -148,8 +166,12 @@ export const SkillKitDataFabric: React.FC = () => {
                   onClick={handleCopyCode}
                   className="flex items-center space-x-1 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs text-slate-200 border border-slate-700 transition-all"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copied ? "Copied" : "Copy Script Include"}</span>
+                  {copied ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
+                  <span>{copied ? 'Copied' : 'Copy Script Include'}</span>
                 </button>
               </div>
 
@@ -160,7 +182,10 @@ export const SkillKitDataFabric: React.FC = () => {
                     Input Parameters (Contract)
                   </span>
                   {selectedSkill.inputs.map((inp, idx) => (
-                    <div key={idx} className="flex items-center justify-between font-mono text-[11px]">
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between font-mono text-[11px]"
+                    >
                       <span className="text-emerald-400">{inp.name}</span>
                       <span className="text-slate-500">{inp.type}</span>
                     </div>
@@ -184,7 +209,9 @@ export const SkillKitDataFabric: React.FC = () => {
                     <FileCode className="w-3.5 h-3.5 text-emerald-400" />
                     <span>ServiceNow Server-Side Script Include (JavaScript ES2022)</span>
                   </span>
-                  <span className="text-[10px] text-emerald-400 font-mono">GlideRecordSecure Enforced</span>
+                  <span className="text-[10px] text-emerald-400 font-mono">
+                    GlideRecordSecure Enforced
+                  </span>
                 </div>
                 <pre className="p-4 bg-slate-950 rounded-lg border border-slate-800 text-xs font-mono text-emerald-300 overflow-x-auto leading-relaxed max-h-80">
                   {selectedSkill.glideScript}
@@ -196,7 +223,7 @@ export const SkillKitDataFabric: React.FC = () => {
       )}
 
       {/* SUBTAB 2: WORKFLOW DATA FABRIC */}
-      {activeSubTab === "data-fabric" && (
+      {activeSubTab === 'data-fabric' && (
         <div className="space-y-5">
           {/* Semantic Search Sandbox */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
@@ -207,8 +234,8 @@ export const SkillKitDataFabric: React.FC = () => {
                   <span>Workflow Data Fabric: CMDB & Vector Hybrid Retrieval</span>
                 </h3>
                 <p className="text-[11px] text-slate-400">
-                  Translates natural language incident descriptions into grounded CMDB graph records using hybrid
-                  embeddings + relational ACL filtering
+                  Translates natural language incident descriptions into grounded CMDB graph records
+                  using hybrid embeddings + relational ACL filtering
                 </p>
               </div>
               <span className="text-xs font-mono text-cyan-400 px-2.5 py-1 rounded bg-cyan-950 border border-cyan-800/40">
@@ -253,8 +280,8 @@ export const SkillKitDataFabric: React.FC = () => {
                       key={ci.sys_id}
                       className={`bg-slate-950 p-3.5 rounded-lg border transition-all ${
                         isTopMatch
-                          ? "border-emerald-500/50 bg-emerald-950/20 shadow-sm"
-                          : "border-slate-800/80 hover:border-slate-700"
+                          ? 'border-emerald-500/50 bg-emerald-950/20 shadow-sm'
+                          : 'border-slate-800/80 hover:border-slate-700'
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -265,7 +292,7 @@ export const SkillKitDataFabric: React.FC = () => {
                           <span className="text-[10px] text-slate-400 font-mono">Cosine Sim:</span>
                           <span
                             className={`text-[11px] font-mono font-bold ${
-                              isTopMatch ? "text-emerald-400" : "text-slate-400"
+                              isTopMatch ? 'text-emerald-400' : 'text-slate-400'
                             }`}
                           >
                             {(similarity * 100).toFixed(1)}%
@@ -285,7 +312,7 @@ export const SkillKitDataFabric: React.FC = () => {
                       <div className="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-slate-800/70 text-[10px] text-slate-400 font-mono">
                         <div>Tier: {ci.tier}</div>
                         <div>Cloud: {ci.cloud_provider}</div>
-                        <div>Status: {ci.status.split(" - ")[0]}</div>
+                        <div>Status: {ci.status.split(' - ')[0]}</div>
                         <div>Owner: {ci.owner}</div>
                       </div>
                     </div>

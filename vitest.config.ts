@@ -13,14 +13,11 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],
+    exclude: ['**/node_modules/**', '**/dist/**', 'tests/e2e/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
-      include: [
-        'server.ts',
-        'src/data/mockData.ts',
-        'src/components/Header.tsx',
-      ],
+      include: ['server.ts', 'src/data/mockData.ts', 'src/components/Header.tsx'],
       thresholds: {
         lines: 100,
         functions: 100,

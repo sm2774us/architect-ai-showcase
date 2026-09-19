@@ -24,7 +24,9 @@ describe('Header Component', () => {
     expect(screen.getByRole('button', { name: /MCP & A2A Protocol/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /OpenTelemetry/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /LLM & Cloud Hybrid/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Staff AI Leadership & Defense/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /Staff AI Leadership & Defense/i })
+    ).toBeInTheDocument();
   });
 
   it('triggers setActiveTab when a navigation tab is clicked', () => {
@@ -98,7 +100,9 @@ describe('Header Component', () => {
       />
     );
 
-    expect(screen.getByRole('button', { name: /Staff AI Leadership & Defense/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /Staff AI Leadership & Defense/i })
+    ).toBeInTheDocument();
 
     rerender(
       <Header

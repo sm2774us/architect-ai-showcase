@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Network,
   Terminal,
@@ -12,9 +12,9 @@ import {
   Server,
   Cloud,
   FileJson,
-} from "lucide-react";
-import { McpToolItem } from "../types";
-import { mcpToolsCatalog } from "../data/mockData";
+} from 'lucide-react';
+import { McpToolItem } from '../types';
+import { mcpToolsCatalog } from '../data/mockData';
 
 export const McpA2aLab: React.FC = () => {
   const [selectedTool, setSelectedTool] = useState<McpToolItem>(mcpToolsCatalog[0]);
@@ -40,12 +40,12 @@ export const McpA2aLab: React.FC = () => {
       try {
         parsedArgs = JSON.parse(toolArguments);
       } catch (e) {
-        console.warn("Invalid JSON in tool args, passing raw text:", e);
+        console.warn('Invalid JSON in tool args, passing raw text:', e);
       }
 
-      const res = await fetch("/api/mcp/call", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/mcp/call', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           toolName: selectedTool.name,
           arguments: parsedArgs,
@@ -54,7 +54,7 @@ export const McpA2aLab: React.FC = () => {
       const data = await res.json();
       setMcpResponse(data);
     } catch (err) {
-      console.error("MCP tool call error:", err);
+      console.error('MCP tool call error:', err);
     } finally {
       setIsExecutingTool(false);
     }
@@ -78,8 +78,9 @@ export const McpA2aLab: React.FC = () => {
               Governed Multi-Agent Interoperability Lab
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
-              Standardizing tool execution via MCP JSON-RPC 2.0 and agent-to-agent negotiation via the A2A protocol.
-              Eliminates vendor lock-in and prevents security privilege escalation across multi-cloud enterprise agents.
+              Standardizing tool execution via MCP JSON-RPC 2.0 and agent-to-agent negotiation via
+              the A2A protocol. Eliminates vendor lock-in and prevents security privilege escalation
+              across multi-cloud enterprise agents.
             </p>
           </div>
 
@@ -109,7 +110,8 @@ export const McpA2aLab: React.FC = () => {
                 Model Context Protocol (MCP) Tool Executor
               </h3>
               <p className="text-[11px] text-slate-400">
-                Live sandbox invoking ServiceNow and Cloud tools using standard JSON-RPC 2.0 envelopes
+                Live sandbox invoking ServiceNow and Cloud tools using standard JSON-RPC 2.0
+                envelopes
               </p>
             </div>
           </div>
@@ -128,8 +130,8 @@ export const McpA2aLab: React.FC = () => {
                   onClick={() => handleToolSelect(tool)}
                   className={`w-full text-left p-3 rounded-lg border transition-all text-xs ${
                     selectedTool.name === tool.name
-                      ? "bg-cyan-950/50 border-cyan-500/50 text-cyan-300 font-semibold"
-                      : "bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700"
+                      ? 'bg-cyan-950/50 border-cyan-500/50 text-cyan-300 font-semibold'
+                      : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -170,7 +172,7 @@ export const McpA2aLab: React.FC = () => {
               className="flex items-center space-x-2 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-slate-950 text-xs font-bold rounded-lg transition-all shadow"
             >
               <Play className="w-3.5 h-3.5 fill-slate-950" />
-              <span>{isExecutingTool ? "Dispatching MCP Call..." : "Execute MCP Tool Call"}</span>
+              <span>{isExecutingTool ? 'Dispatching MCP Call...' : 'Execute MCP Tool Call'}</span>
             </button>
 
             {/* MCP JSON-RPC Response */}
@@ -198,7 +200,8 @@ export const McpA2aLab: React.FC = () => {
               <span>Agent2Agent (A2A) Governed Negotiation Protocol</span>
             </h3>
             <p className="text-[11px] text-slate-400">
-              Demonstrates cryptographic scope exchange and trust delegation between ServiceNow agents and Cloud agents
+              Demonstrates cryptographic scope exchange and trust delegation between ServiceNow
+              agents and Cloud agents
             </p>
           </div>
           <div className="flex space-x-1">
@@ -208,8 +211,8 @@ export const McpA2aLab: React.FC = () => {
                 onClick={() => setA2aStep(step)}
                 className={`w-6 h-6 rounded text-[11px] font-mono font-bold transition-all ${
                   a2aStep === step
-                    ? "bg-emerald-500 text-slate-950 font-black"
-                    : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                    ? 'bg-emerald-500 text-slate-950 font-black'
+                    : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
                 }`}
               >
                 {step}
@@ -223,16 +226,18 @@ export const McpA2aLab: React.FC = () => {
           {a2aStep === 1 && (
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-xs font-bold text-cyan-400">
-                <span className="px-2 py-0.5 rounded bg-cyan-950 border border-cyan-800 text-[10px]">STEP 01</span>
+                <span className="px-2 py-0.5 rounded bg-cyan-950 border border-cyan-800 text-[10px]">
+                  STEP 01
+                </span>
                 <span>Agent Card Discovery & Capability Advertisement</span>
               </div>
               <p className="text-xs text-slate-300">
-                The requesting agent (Incident Triage Agent) queries the local A2A Registry for agents declaring the
-                capability <code>cloud.diagnostics.metrics</code>. The A2A Cloud Diagnostics Agent responds with its
-                signed Agent Card.
+                The requesting agent (Incident Triage Agent) queries the local A2A Registry for
+                agents declaring the capability <code>cloud.diagnostics.metrics</code>. The A2A
+                Cloud Diagnostics Agent responds with its signed Agent Card.
               </p>
               <pre className="p-3 bg-slate-900 rounded border border-slate-800 text-[11px] font-mono text-cyan-300">
-{`{
+                {`{
   "agent_id": "agent-cloud-diagnostics-04",
   "name": "Cloud Diagnostics Agent",
   "version": "1.4.0",
@@ -247,18 +252,21 @@ export const McpA2aLab: React.FC = () => {
           {a2aStep === 2 && (
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-xs font-bold text-emerald-400">
-                <span className="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-[10px]">STEP 02</span>
+                <span className="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-[10px]">
+                  STEP 02
+                </span>
                 <span>Trust Boundary & Scope Verification</span>
               </div>
               <p className="text-xs text-slate-300">
-                Before delegation is accepted, the Target Agent contacts ServiceNow AI Control Tower to verify that the
-                Requesting Agent holds valid enterprise scopes. Unauthorized escalation is rejected immediately.
+                Before delegation is accepted, the Target Agent contacts ServiceNow AI Control Tower
+                to verify that the Requesting Agent holds valid enterprise scopes. Unauthorized
+                escalation is rejected immediately.
               </p>
               <div className="p-3 bg-slate-900 rounded border border-emerald-800/40 text-[11px] text-emerald-300 font-mono">
                 ✓ Verified Scope: 'sn_incident.read' <br />
                 ✓ Verified Scope: 'cloud_infra.metrics.read' <br />
-                ✓ Rate Limit Bucket: Department_SRE (3,400 / 10,000 monthly queries used) <br />
-                ✓ Delegation Status: AUTHORIZED_BY_CONTROL_TOWER
+                ✓ Rate Limit Bucket: Department_SRE (3,400 / 10,000 monthly queries used) <br />✓
+                Delegation Status: AUTHORIZED_BY_CONTROL_TOWER
               </div>
             </div>
           )}
@@ -266,16 +274,18 @@ export const McpA2aLab: React.FC = () => {
           {a2aStep === 3 && (
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-xs font-bold text-amber-400">
-                <span className="px-2 py-0.5 rounded bg-amber-950 border border-amber-800 text-[10px]">STEP 03</span>
+                <span className="px-2 py-0.5 rounded bg-amber-950 border border-amber-800 text-[10px]">
+                  STEP 03
+                </span>
                 <span>Cryptographic Context Handoff & Loop Prevention</span>
               </div>
               <p className="text-xs text-slate-300">
-                A structured execution envelope is created with an OpenTelemetry trace context and a recursion hop
-                limiter (Hop = 2/5). If an agent attempts to call back in a circle, the A2A execution kernel terminates
-                the loop.
+                A structured execution envelope is created with an OpenTelemetry trace context and a
+                recursion hop limiter (Hop = 2/5). If an agent attempts to call back in a circle,
+                the A2A execution kernel terminates the loop.
               </p>
               <pre className="p-3 bg-slate-900 rounded border border-slate-800 text-[11px] font-mono text-amber-300">
-{`{
+                {`{
   "a2a_envelope_id": "env_94218a",
   "parent_trace_id": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
   "hop_depth": 2,
@@ -289,17 +299,20 @@ export const McpA2aLab: React.FC = () => {
           {a2aStep === 4 && (
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-xs font-bold text-purple-400">
-                <span className="px-2 py-0.5 rounded bg-purple-950 border border-purple-800 text-[10px]">STEP 04</span>
+                <span className="px-2 py-0.5 rounded bg-purple-950 border border-purple-800 text-[10px]">
+                  STEP 04
+                </span>
                 <span>Consensus Synthesis & GlideRecord Return</span>
               </div>
               <p className="text-xs text-slate-300">
-                The diagnosing agent returns metric telemetry back to the ServiceNow Incident Triage Agent, which synthesizes
-                the findings into the incident work notes and notifies the assignment group.
+                The diagnosing agent returns metric telemetry back to the ServiceNow Incident Triage
+                Agent, which synthesizes the findings into the incident work notes and notifies the
+                assignment group.
               </p>
               <div className="p-3 bg-slate-900 rounded border border-purple-800/40 text-[11px] text-purple-300 font-mono">
                 ✓ Output validated against JSON Schema <br />
-                ✓ Work notes appended to INC0948210 <br />
-                ✓ OpenTelemetry span closed: duration = 310ms, status = OK
+                ✓ Work notes appended to INC0948210 <br />✓ OpenTelemetry span closed: duration =
+                310ms, status = OK
               </div>
             </div>
           )}

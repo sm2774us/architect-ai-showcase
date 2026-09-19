@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Cpu,
   Play,
@@ -15,9 +15,9 @@ import {
   RefreshCw,
   Info,
   Workflow,
-} from "lucide-react";
-import { AgentNode, IncidentRecord } from "../types";
-import { mockIncidentsList } from "../data/mockData";
+} from 'lucide-react';
+import { AgentNode, IncidentRecord } from '../types';
+import { mockIncidentsList } from '../data/mockData';
 
 interface AgentStudioProps {
   agents: AgentNode[];
@@ -41,7 +41,7 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
       ` (Impacts CI: ${selectedIncident.cmdb_ci}, Priority: ${selectedIncident.priority})`
   );
   const [hitlApproved, setHitlApproved] = useState(false);
-  const [activeStepTab, setActiveStepTab] = useState<"topology" | "execution" | "spec">("topology");
+  const [activeStepTab, setActiveStepTab] = useState<'topology' | 'execution' | 'spec'>('topology');
 
   const handleRun = () => {
     onExecuteWorkflow(customPrompt, hitlApproved);
@@ -72,8 +72,9 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
               Autonomous Multi-Agent Incident Orchestrator
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
-              Implements multi-agent deliberation, context isolation, and governed tool dispatch across ServiceNow's
-              native runtime, Workflow Data Fabric, and external cloud environments using the Agent2Agent (A2A) protocol.
+              Implements multi-agent deliberation, context isolation, and governed tool dispatch
+              across ServiceNow's native runtime, Workflow Data Fabric, and external cloud
+              environments using the Agent2Agent (A2A) protocol.
             </p>
           </div>
 
@@ -101,7 +102,9 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                 <Terminal className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Incident Ingestion Query (Agent Studio Input Trigger)</span>
               </label>
-              <span className="text-[11px] text-slate-500">Live prompt routed through NowLLM gateway</span>
+              <span className="text-[11px] text-slate-500">
+                Live prompt routed through NowLLM gateway
+              </span>
             </div>
             <textarea
               id="input-agent-studio-query"
@@ -121,13 +124,17 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                   onClick={() => handleSelectPreset(inc)}
                   className={`text-[11px] px-2.5 py-1 rounded border transition-all ${
                     selectedIncident.sys_id === inc.sys_id
-                      ? "bg-emerald-950/70 border-emerald-500/50 text-emerald-300 font-semibold"
-                      : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700"
+                      ? 'bg-emerald-950/70 border-emerald-500/50 text-emerald-300 font-semibold'
+                      : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                   }`}
                 >
-                  <span className="font-mono font-bold text-[10px] mr-1 text-slate-500">{inc.number}</span>
-                  {inc.priority.split(" - ")[0] === "1" ? "🚨 P1" : "⚠️ " + inc.priority.split(" - ")[0]}:{" "}
-                  {inc.short_description.substring(0, 32)}...
+                  <span className="font-mono font-bold text-[10px] mr-1 text-slate-500">
+                    {inc.number}
+                  </span>
+                  {inc.priority.split(' - ')[0] === '1'
+                    ? '🚨 P1'
+                    : '⚠️ ' + inc.priority.split(' - ')[0]}
+                  : {inc.short_description.substring(0, 32)}...
                 </button>
               ))}
             </div>
@@ -139,15 +146,17 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                 <span>Human-In-The-Loop (HITL) Gate</span>
                 <span
                   className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                    hitlApproved ? "bg-emerald-900/50 text-emerald-300" : "bg-amber-900/40 text-amber-300"
+                    hitlApproved
+                      ? 'bg-emerald-900/50 text-emerald-300'
+                      : 'bg-amber-900/40 text-amber-300'
                   }`}
                 >
-                  {hitlApproved ? "Pre-Authorized" : "Enforce Stop"}
+                  {hitlApproved ? 'Pre-Authorized' : 'Enforce Stop'}
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 leading-relaxed">
-                ServiceNow AI Control Tower policy requires explicit Staff/Principal engineer approval before mutating
-                Tier-0 production infrastructure.
+                ServiceNow AI Control Tower policy requires explicit Staff/Principal engineer
+                approval before mutating Tier-0 production infrastructure.
               </p>
 
               <label className="mt-2.5 flex items-center space-x-2 cursor-pointer select-none">
@@ -157,7 +166,9 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                   onChange={(e) => setHitlApproved(e.target.checked)}
                   className="rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-emerald-500 w-3.5 h-3.5"
                 />
-                <span className="text-xs text-slate-300">Staff AI Sign-off: Authorize Emergency Change CHG</span>
+                <span className="text-xs text-slate-300">
+                  Staff AI Sign-off: Authorize Emergency Change CHG
+                </span>
               </label>
             </div>
 
@@ -167,8 +178,8 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
               disabled={isExecuting}
               className={`mt-3 w-full flex items-center justify-center space-x-2 py-2.5 px-4 rounded-lg text-xs font-bold transition-all shadow-md ${
                 isExecuting
-                  ? "bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700"
-                  : "bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 text-slate-950 font-bold active:scale-98"
+                  ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
+                  : 'bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 text-slate-950 font-bold active:scale-98'
               }`}
             >
               {isExecuting ? (
@@ -190,22 +201,22 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
       {/* Mode Tabs: Multi-Agent Graph vs Step-by-Step Execution Logs */}
       <div className="flex border-b border-slate-800 space-x-4 text-xs font-semibold">
         <button
-          onClick={() => setActiveStepTab("topology")}
+          onClick={() => setActiveStepTab('topology')}
           className={`pb-2 transition-colors flex items-center space-x-1.5 ${
-            activeStepTab === "topology"
-              ? "text-emerald-400 border-b-2 border-emerald-400"
-              : "text-slate-400 hover:text-slate-200"
+            activeStepTab === 'topology'
+              ? 'text-emerald-400 border-b-2 border-emerald-400'
+              : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <Layers className="w-3.5 h-3.5" />
           <span>Multi-Agent Architecture Graph</span>
         </button>
         <button
-          onClick={() => setActiveStepTab("execution")}
+          onClick={() => setActiveStepTab('execution')}
           className={`pb-2 transition-colors flex items-center space-x-1.5 ${
-            activeStepTab === "execution"
-              ? "text-emerald-400 border-b-2 border-emerald-400"
-              : "text-slate-400 hover:text-slate-200"
+            activeStepTab === 'execution'
+              ? 'text-emerald-400 border-b-2 border-emerald-400'
+              : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <Activity className="w-3.5 h-3.5" />
@@ -215,11 +226,11 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
           )}
         </button>
         <button
-          onClick={() => setActiveStepTab("spec")}
+          onClick={() => setActiveStepTab('spec')}
           className={`pb-2 transition-colors flex items-center space-x-1.5 ${
-            activeStepTab === "spec"
-              ? "text-emerald-400 border-b-2 border-emerald-400"
-              : "text-slate-400 hover:text-slate-200"
+            activeStepTab === 'spec'
+              ? 'text-emerald-400 border-b-2 border-emerald-400'
+              : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           <Info className="w-3.5 h-3.5" />
@@ -228,7 +239,7 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
       </div>
 
       {/* TAB 1: Multi-Agent Graph */}
-      {activeStepTab === "topology" && (
+      {activeStepTab === 'topology' && (
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
             {agents.map((agent, index) => {
@@ -262,17 +273,24 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                   <div className="mt-3 pt-3 border-t border-slate-800/80 space-y-1.5 text-[10px]">
                     <div className="flex items-center justify-between text-slate-400">
                       <span>Model Gateway:</span>
-                      <span className="text-slate-200 font-mono truncate max-w-[110px]" title={agent.model}>
-                        {agent.model.split(" ")[0]}
+                      <span
+                        className="text-slate-200 font-mono truncate max-w-[110px]"
+                        title={agent.model}
+                      >
+                        {agent.model.split(' ')[0]}
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-slate-400">
                       <span>Tools Bound:</span>
-                      <span className="text-emerald-400 font-mono font-semibold">{agent.tools.length} Tools</span>
+                      <span className="text-emerald-400 font-mono font-semibold">
+                        {agent.tools.length} Tools
+                      </span>
                     </div>
                     <div className="flex items-center justify-between text-slate-400">
                       <span>Confidence:</span>
-                      <span className="text-slate-200 font-mono">{(agent.confidence * 100).toFixed(0)}%</span>
+                      <span className="text-slate-200 font-mono">
+                        {(agent.confidence * 100).toFixed(0)}%
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -287,8 +305,9 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                 <Workflow className="w-4 h-4" />
               </span>
               <span>
-                <strong>A2A Inter-Agent Protocol Flow:</strong> Inbound Incident → Intent Isolation → Workflow Data
-                Fabric Graph Query → Cloud MCP Tool Execution → Control Tower HITL Gate → Safe GlideRecord Mutation.
+                <strong>A2A Inter-Agent Protocol Flow:</strong> Inbound Incident → Intent Isolation
+                → Workflow Data Fabric Graph Query → Cloud MCP Tool Execution → Control Tower HITL
+                Gate → Safe GlideRecord Mutation.
               </span>
             </div>
             <button
@@ -302,15 +321,17 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
       )}
 
       {/* TAB 2: Live Execution Trace & Logs */}
-      {activeStepTab === "execution" && (
+      {activeStepTab === 'execution' && (
         <div className="space-y-4">
           {!executionResult && !isExecuting && (
             <div className="p-8 text-center bg-slate-900/50 rounded-xl border border-dashed border-slate-800">
               <Activity className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-              <h4 className="text-sm font-semibold text-slate-300">No Workflow Execution in Memory</h4>
+              <h4 className="text-sm font-semibold text-slate-300">
+                No Workflow Execution in Memory
+              </h4>
               <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
-                Click "Execute AI Agent Studio Pipeline" above to run the multi-agent incident triage and see live
-                agent-to-agent deliberation logs.
+                Click "Execute AI Agent Studio Pipeline" above to run the multi-agent incident
+                triage and see live agent-to-agent deliberation logs.
               </p>
               <button
                 onClick={handleRun}
@@ -326,10 +347,12 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
               <div className="flex justify-center">
                 <RefreshCw className="w-8 h-8 text-emerald-400 animate-spin" />
               </div>
-              <h4 className="text-sm font-bold text-white">Deliberating Across ServiceNow Agent Fleet...</h4>
+              <h4 className="text-sm font-bold text-white">
+                Deliberating Across ServiceNow Agent Fleet...
+              </h4>
               <p className="text-xs text-slate-400 font-mono">
-                Executing Intent Router → Traversing CMDB Data Fabric → Calling MCP CloudWatch Tools → Verifying Control
-                Tower Policies
+                Executing Intent Router → Traversing CMDB Data Fabric → Calling MCP CloudWatch Tools
+                → Verifying Control Tower Policies
               </p>
             </div>
           )}
@@ -354,9 +377,9 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                   </div>
                   <span
                     className={`text-[11px] px-2.5 py-1 rounded font-bold font-mono ${
-                      executionResult.governanceStatus === "GOVERNED_APPROVED"
-                        ? "bg-emerald-950 text-emerald-300 border border-emerald-500/40"
-                        : "bg-amber-950 text-amber-300 border border-amber-500/40"
+                      executionResult.governanceStatus === 'GOVERNED_APPROVED'
+                        ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/40'
+                        : 'bg-amber-950 text-amber-300 border border-amber-500/40'
                     }`}
                   >
                     {executionResult.governanceStatus}
@@ -370,7 +393,10 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                 {/* Proposed Remediation & Changes */}
                 <div className="mt-4 pt-4 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-3">
                   {executionResult.proposedActions?.map((act: any, i: number) => (
-                    <div key={i} className="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs space-y-1.5">
+                    <div
+                      key={i}
+                      className="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs space-y-1.5"
+                    >
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-emerald-400 flex items-center space-x-1">
                           <GitPullRequest className="w-3.5 h-3.5" />
@@ -397,7 +423,9 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                     <Terminal className="w-4 h-4 text-cyan-400" />
                     <span>Agent2Agent (A2A) Deliberation & Tool Execution Stream</span>
                   </h4>
-                  <span className="text-[11px] text-slate-400 font-mono">Trace ID: {executionResult.traceId}</span>
+                  <span className="text-[11px] text-slate-400 font-mono">
+                    Trace ID: {executionResult.traceId}
+                  </span>
                 </div>
 
                 <div className="space-y-2.5 font-mono text-xs">
@@ -425,11 +453,11 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                         <span className="text-[10px] text-slate-500">{step.latencyMs}ms</span>
                         <span
                           className={`text-[10px] px-2 py-0.5 rounded font-bold ${
-                            step.status === "COMPLETED" || step.status === "APPROVED_BY_STAFF_ENG"
-                              ? "bg-emerald-950 text-emerald-300"
-                              : step.status === "AWAITING_HITL_APPROVAL"
-                              ? "bg-amber-950 text-amber-300 animate-pulse"
-                              : "bg-slate-800 text-slate-300"
+                            step.status === 'COMPLETED' || step.status === 'APPROVED_BY_STAFF_ENG'
+                              ? 'bg-emerald-950 text-emerald-300'
+                              : step.status === 'AWAITING_HITL_APPROVAL'
+                                ? 'bg-amber-950 text-amber-300 animate-pulse'
+                                : 'bg-slate-800 text-slate-300'
                           }`}
                         >
                           {step.status}
@@ -445,7 +473,7 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
       )}
 
       {/* TAB 3: Staff AI Design Specification */}
-      {activeStepTab === "spec" && (
+      {activeStepTab === 'spec' && (
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 text-xs text-slate-300 space-y-4 leading-relaxed">
           <div className="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
             <Layers className="w-4 h-4" />
@@ -456,35 +484,40 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
             <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
               <h5 className="font-bold text-white text-xs">1. State Machine & Loop Prevention</h5>
               <p className="text-slate-400 text-[11px]">
-                Autonomous multi-agent swarms risk circular deadlock (e.g., Agent A delegates to Agent B, which delegates back).
-                Our design implements an acyclic directed execution graph (DAG) enforced by a shared execution token with a
-                hop counter (Max Hops = 5) and strict termination conditions.
+                Autonomous multi-agent swarms risk circular deadlock (e.g., Agent A delegates to
+                Agent B, which delegates back). Our design implements an acyclic directed execution
+                graph (DAG) enforced by a shared execution token with a hop counter (Max Hops = 5)
+                and strict termination conditions.
               </p>
             </div>
 
             <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
-              <h5 className="font-bold text-white text-xs">2. Context Isolation & Least Privilege</h5>
+              <h5 className="font-bold text-white text-xs">
+                2. Context Isolation & Least Privilege
+              </h5>
               <p className="text-slate-400 text-[11px]">
-                Each agent operates within an isolated context window. Rather than forwarding raw 20,000-token prompt histories,
-                the Router passes only synthesized semantic intents, preventing prompt contamination, privilege escalation,
-                and unnecessary token cost.
+                Each agent operates within an isolated context window. Rather than forwarding raw
+                20,000-token prompt histories, the Router passes only synthesized semantic intents,
+                preventing prompt contamination, privilege escalation, and unnecessary token cost.
               </p>
             </div>
 
             <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
               <h5 className="font-bold text-white text-xs">3. Hybrid Model Routing</h5>
               <p className="text-slate-400 text-[11px]">
-                Latency-sensitive tasks (intent classification, entity extraction) execute on ServiceNow's on-platform NowLLM
-                domain models (P95 &lt; 180ms). Complex reasoning and code generation escalate through our secure cloud gateway
-                to Google Gemini 3.8 Flash or Claude 3.5.
+                Latency-sensitive tasks (intent classification, entity extraction) execute on
+                ServiceNow's on-platform NowLLM domain models (P95 &lt; 180ms). Complex reasoning
+                and code generation escalate through our secure cloud gateway to Google Gemini 3.8
+                Flash or Claude 3.5.
               </p>
             </div>
 
             <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
               <h5 className="font-bold text-white text-xs">4. Governed GlideRecord Execution</h5>
               <p className="text-slate-400 text-[11px]">
-                AI agents never execute raw unvalidated JavaScript. Changes are wrapped in audited GlideRecordSecure transactions
-                registered as ServiceNow Update Sets, allowing instant 1-click rollback via Change Management.
+                AI agents never execute raw unvalidated JavaScript. Changes are wrapped in audited
+                GlideRecordSecure transactions registered as ServiceNow Update Sets, allowing
+                instant 1-click rollback via Change Management.
               </p>
             </div>
           </div>

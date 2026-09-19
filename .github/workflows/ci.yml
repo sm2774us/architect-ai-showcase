@@ -1,20 +1,19 @@
-name: Enterprise CI-CD Pipeline & 100% Quality Gate
+name: Enterprise Full-Stack CI-CD Pipeline & Quality Gate
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  test-and-verify:
-    name: Unit & Integration Testing (100% Coverage Gate)
+  lint-and-format:
+    name: Lint & Code Style Validation
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
@@ -34,8 +33,33 @@ jobs:
             npm install --legacy-peer-deps
           fi
 
+      - name: Code Formatting Check (Prettier)
+        run: npm run format:check
+
       - name: TypeScript Typecheck & Lint
         run: npm run lint
+
+  unit-and-coverage:
+    name: Unit & Integration Tests (100% Coverage Gate)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Install Dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --legacy-peer-deps
+          else
+            npm install --legacy-peer-deps
+          fi
 
       - name: Execute Vitest Suite with 100% Coverage Verification
         env:
@@ -43,7 +67,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY || 'ci-runner-test-key' }}
         run: npx vitest run --coverage
 
-      - name: Upload Coverage Reports (HTML & LCOV)
+      - name: Upload Coverage Artifacts (HTML & LCOV)
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -51,5 +75,97 @@ jobs:
           path: coverage/
           retention-days: 14
 
-      - name: Production Application & Server Build Verification
+  security-audit:
+    name: Security & Secret Vulnerability Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: NPM Dependency Vulnerability Audit
+        run: npm audit --audit-level=high
+
+      - name: Gitleaks Secret Detection Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+  build-and-budget:
+    name: Production Asset Build & Size Budgets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Install Dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --legacy-peer-deps
+          else
+            npm install --legacy-peer-deps
+          fi
+
+      - name: Compile Production Bundles (Client & Server)
         run: npm run build
+
+      - name: Audit Bundle Size Performance Budgets
+        run: npm run bundle:check
+
+  e2e-playwright:
+    name: End-to-End Browser Tests (Playwright)
+    runs-on: ubuntu-latest
+    needs: [build-and-budget]
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Install Dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --legacy-peer-deps
+          else
+            npm install --legacy-peer-deps
+          fi
+
+      - name: Install Playwright Browsers & OS Dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Compile Application for Headless Server
+        run: npm run build
+
+      - name: Execute Playwright E2E Test Suite
+        env:
+          NODE_ENV: production
+          CI: 'true'
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY || 'ci-runner-test-key' }}
+        run: npm run test:e2e
+
+      - name: Upload Playwright Failure Report & Videos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14

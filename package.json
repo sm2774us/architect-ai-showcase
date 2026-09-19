@@ -8,12 +8,16 @@
     "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "start": "node dist/server.cjs",
     "preview": "vite preview",
-    "clean": "rm -rf dist server.js",
+    "clean": "rm -rf dist server.js coverage test-results playwright-report",
     "lint": "tsc --noEmit",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "bundle:check": "node scripts/check-bundle-size.mjs",
     "prepare": "lefthook install"
   },
   "dependencies": {
@@ -29,6 +33,7 @@
     "motion": "^12.23.24"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
@@ -42,6 +47,7 @@
     "esbuild": "^0.25.0",
     "jsdom": "^30.1.0",
     "lefthook": "^2.1.14",
+    "prettier": "^3.9.8",
     "supertest": "^7.2.2",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",

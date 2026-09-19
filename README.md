@@ -4,13 +4,13 @@
 > **Requisition:** JB0075541 • IT / AI Platform Architecture • West Palm Beach, FL (Flexible / Remote)  
 > **Platform Version:** ServiceNow Xanadu Enterprise AI Release  
 > **Observability Standard:** OpenTelemetry (OTel) GenAI Semantic Conventions v1.28.0  
-> **Multi-Agent Interoperability:** Model Context Protocol (MCP) 2024-11-05 & Agent2Agent (A2A) v1.2  
+> **Multi-Agent Interoperability:** Model Context Protocol (MCP) 2024-11-05 & Agent2Agent (A2A) v1.2
 
 ---
 
 ## 1. Executive Synopsis & Mission Alignment
 
-> *"It all started when engineer Fred Luddy wrote code that automated a tedious task for his coworker, Phyllis. She cried tears of joy. That moment inspired Fred to build a company that could do that for everyone—freeing people from busywork so they could focus on meaningful work. Today, ServiceNow is the AI control tower for business reinvention. Our ServiceNow AI platform brings together any AI, any data, and any workflow—helping 85% of the Fortune 500® work smarter, faster, and better."*
+> _"It all started when engineer Fred Luddy wrote code that automated a tedious task for his coworker, Phyllis. She cried tears of joy. That moment inspired Fred to build a company that could do that for everyone—freeing people from busywork so they could focus on meaningful work. Today, ServiceNow is the AI control tower for business reinvention. Our ServiceNow AI platform brings together any AI, any data, and any workflow—helping 85% of the Fortune 500® work smarter, faster, and better."_
 
 As a **Staff AI Engineer**, this enterprise suite serves as a living, end-to-end reference implementation and technical qualification defense. It demonstrates hands-on mastery across every pillar of the role:
 
@@ -308,6 +308,7 @@ The application is structured as a full-stack, enterprise-grade architecture tha
 ## 5. Compile, Transpile, Build & Run Instructions
 
 ### 5.1 System Prerequisites
+
 - **Node.js**: Version `18.18.0` or higher (`v20+` or `v22+` recommended).
 - **npm**: Version `9.0.0` or higher.
 - **Environment**: Linux, macOS, or Windows (WSL2).
@@ -315,6 +316,7 @@ The application is structured as a full-stack, enterprise-grade architecture tha
 ---
 
 ### 5.2 Environment Configuration
+
 Create a `.env` file in the project root based on `.env.example`:
 
 ```bash
@@ -333,6 +335,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 ---
 
 ### 5.3 Local Development Mode
+
 In development mode, `tsx` runs `server.ts` with TypeScript support, mounting Vite as native development middleware:
 
 ```bash
@@ -349,7 +352,9 @@ npm run dev
 ---
 
 ### 5.4 Production Compilation, Transpilation & Bundling
+
 The production build pipeline performs a two-stage compilation:
+
 1. **Client SPA Build:** `vite build` invokes Rollup and Tailwind CSS v4 to compile, tree-shake, and emit static HTML, CSS, and JS into `dist/`.
 2. **Backend Server Bundle:** `esbuild` transpiles and bundles `server.ts` into a single, self-contained CommonJS artifact at `dist/server.cjs`, using `--packages=external` to preserve external Node runtime modules while bundling relative imports and generating sourcemaps.
 
@@ -359,6 +364,7 @@ npm run build
 ```
 
 Expected output structure:
+
 ```
 dist/
 ├── assets/
@@ -372,6 +378,7 @@ dist/
 ---
 
 ### 5.5 Production Execution
+
 Start the production server using Node.js:
 
 ```bash
@@ -383,6 +390,7 @@ The Express server serves the compiled `dist/index.html` and static assets, whil
 ---
 
 ### 5.6 Static Code Analysis & Verification
+
 Verify TypeScript type conformance across client and server without emitting artifacts:
 
 ```bash
@@ -394,33 +402,41 @@ npm run lint
 ## 6. Detailed Solution Explanation & Engineering Choices
 
 ### 6.1 Why Express + Vite Full-Stack Architecture?
-* **Zero API Key Leakage:** Client-only Single Page Applications (SPAs) expose credentials through browser network inspectors. By running an Express layer on port 3000, all LLM API invocations (`@google/genai`) and external cloud credentials are held strictly server-side.
-* **Unified Port 3000 Routing:** Container environments (such as Google Cloud Run and Kubernetes ingress controllers) mandate single-port ingress. Vite middleware is attached to Express during development, and static Express file serving is engaged in production—guaranteeing identical behavior across all environments.
+
+- **Zero API Key Leakage:** Client-only Single Page Applications (SPAs) expose credentials through browser network inspectors. By running an Express layer on port 3000, all LLM API invocations (`@google/genai`) and external cloud credentials are held strictly server-side.
+- **Unified Port 3000 Routing:** Container environments (such as Google Cloud Run and Kubernetes ingress controllers) mandate single-port ingress. Vite middleware is attached to Express during development, and static Express file serving is engaged in production—guaranteeing identical behavior across all environments.
 
 ### 6.2 Why `esbuild` Bundling for `server.ts` (`dist/server.cjs`)?
-* Modern Node.js ES Modules enforce strict file extension checks (e.g. mandatory `.js` extensions on relative imports). 
-* By bundling `server.ts` into CommonJS (`dist/server.cjs`) via `esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap`, all internal relative imports are resolved at compile-time while native C/C++ and external npm packages remain cleanly externalized.
+
+- Modern Node.js ES Modules enforce strict file extension checks (e.g. mandatory `.js` extensions on relative imports).
+- By bundling `server.ts` into CommonJS (`dist/server.cjs`) via `esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap`, all internal relative imports are resolved at compile-time while native C/C++ and external npm packages remain cleanly externalized.
 
 ### 6.3 Why Tailwind CSS v4 with `@tailwindcss/vite`?
-* Tailwind v4 introduces a ground-up performance engine using native CSS features. Configured directly as a Vite plugin via `@import "tailwindcss";`, it eliminates legacy PostCSS configuration overhead while providing immediate utility compilation.
+
+- Tailwind v4 introduces a ground-up performance engine using native CSS features. Configured directly as a Vite plugin via `@import "tailwindcss";`, it eliminates legacy PostCSS configuration overhead while providing immediate utility compilation.
 
 ### 6.4 Polyglot Scripting Paradigm: ServiceNow JavaScript & Python 3.11 Microservices
+
 A Staff AI Engineer in enterprise environments must bridge two worlds:
+
 1. **On-Platform ServiceNow JavaScript (ES2022 / Rhino / Nashorn evolution):** Demonstrated in `src/components/SkillKitDataFabric.tsx` with native Script Includes utilizing `GlideRecordSecure` to enforce table-level and field-level Access Control Lists (ACLs) directly in the database kernel.
 2. **Cloud Python 3.11 Microservices (FastAPI + LangChain / OTel):** Demonstrated in `src/components/CloudLlmArch.tsx`, showcasing how cloud-hosted satellite agents communicate with ServiceNow MID Servers and AI Gateways.
 
 ### 6.5 Model Context Protocol (MCP) & Agent2Agent (A2A) Governance
-* **Model Context Protocol (JSON-RPC 2.0):** Standardizes tool execution into declarative envelopes (`tools/call`, `params.name`, `params.arguments`). This prevents proprietary vendor coupling and allows the same agent logic to drive AWS CloudWatch, Azure Entra, and ServiceNow CMDB tools.
-* **Agent2Agent (A2A) Protocol:** In multi-agent systems, unconstrained recursion leads to runaway costs and infinite loops. Our A2A implementation introduces:
+
+- **Model Context Protocol (JSON-RPC 2.0):** Standardizes tool execution into declarative envelopes (`tools/call`, `params.name`, `params.arguments`). This prevents proprietary vendor coupling and allows the same agent logic to drive AWS CloudWatch, Azure Entra, and ServiceNow CMDB tools.
+- **Agent2Agent (A2A) Protocol:** In multi-agent systems, unconstrained recursion leads to runaway costs and infinite loops. Our A2A implementation introduces:
   - **Cryptographically Signed Agent Cards:** Advertises capabilities before delegation.
   - **Trace Context Propagation:** Injects W3C distributed trace headers.
   - **Recursion Deadband / Hop Limiter:** Hard caps agent-to-agent delegation chains at 5 hops with SHA-256 loop detection hashes.
 
 ### 6.6 OpenTelemetry (OTel) GenAI Semantic Conventions (v1.28.0)
+
 Standard APM tools fail to capture the nuances of generative AI systems. This implementation integrates the modern OTel GenAI standard:
-* Attributes: `gen_ai.system`, `gen_ai.request.model`, `gen_ai.usage.prompt_tokens`, `gen_ai.usage.completion_tokens`, and `cost.department`.
-* Operational Metrics: Measures Time to First Token (TTFT), token budget burns, and Control Tower intervention delays.
-* Production Exporter: Includes a validated `otel-collector-config.yaml` supporting dual-export to ServiceNow Health and Prometheus/Datadog.
+
+- Attributes: `gen_ai.system`, `gen_ai.request.model`, `gen_ai.usage.prompt_tokens`, `gen_ai.usage.completion_tokens`, and `cost.department`.
+- Operational Metrics: Measures Time to First Token (TTFT), token budget burns, and Control Tower intervention delays.
+- Production Exporter: Includes a validated `otel-collector-config.yaml` supporting dual-export to ServiceNow Health and Prometheus/Datadog.
 
 ---
 
@@ -428,15 +444,15 @@ Standard APM tools fail to capture the nuances of generative AI systems. This im
 
 This repository addresses each requirement from Job Requisition **JB0075541**:
 
-| Job Requisition Responsibility | Implementation & Code Location | Demonstrated Staff-Level Competency |
-| :--- | :--- | :--- |
-| **Architect & implement AI agents and workflows** | `src/components/AgentStudio.tsx`<br>`server.ts` (`/api/agents/execute`) | Multi-agent deliberation pipeline with 5-hop progression and Human-in-the-Loop gates. |
-| **Skill Kit & Workflow Data Fabric (WDF)** | `src/components/SkillKitDataFabric.tsx`<br>`src/data/mockData.ts` | Server-Side Script Includes (`GlideRecordSecure`) and hybrid BM25 + dense vector CMDB retrieval. |
-| **Lead AI Control Tower implementation & governance** | `src/components/ControlTower.tsx`<br>`server.ts` (`/api/control-tower/evaluate`) | Real-time PII/PCI sanitization, prompt injection defenses, and enterprise policy auditing. |
-| **Integrate & configure LLM capabilities in Cloud & Platform** | `src/components/CloudLlmArch.tsx`<br>`server.ts` (`getGenAI()`) | Multi-cloud routing matrix (NowLLM, Gemini, Bedrock, OpenAI) and AST semantic chunking. |
-| **MCP & A2A multi-agent interoperability** | `src/components/McpA2aLab.tsx`<br>`server.ts` (`/api/mcp/call`) | JSON-RPC 2.0 tool execution and 4-step cryptographic A2A trust delegation with loop prevention. |
-| **OpenTelemetry for AI system observability** | `src/components/OpenTelemetrySuite.tsx`<br>`server.ts` (`otelTraceHistory`) | GenAI semantic spans, waterfall flamegraph, token cost attribution, and collector YAML. |
-| **Mentoring, technical direction & architecture defense** | `src/components/StaffLeadership.tsx`<br>`server.ts` (`/api/interview/ask`) | Enterprise RFC-2026-08 authorship, verified ServiceNow certifications, and interactive Q&A simulator. |
+| Job Requisition Responsibility                                 | Implementation & Code Location                                                   | Demonstrated Staff-Level Competency                                                                   |
+| :------------------------------------------------------------- | :------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
+| **Architect & implement AI agents and workflows**              | `src/components/AgentStudio.tsx`<br>`server.ts` (`/api/agents/execute`)          | Multi-agent deliberation pipeline with 5-hop progression and Human-in-the-Loop gates.                 |
+| **Skill Kit & Workflow Data Fabric (WDF)**                     | `src/components/SkillKitDataFabric.tsx`<br>`src/data/mockData.ts`                | Server-Side Script Includes (`GlideRecordSecure`) and hybrid BM25 + dense vector CMDB retrieval.      |
+| **Lead AI Control Tower implementation & governance**          | `src/components/ControlTower.tsx`<br>`server.ts` (`/api/control-tower/evaluate`) | Real-time PII/PCI sanitization, prompt injection defenses, and enterprise policy auditing.            |
+| **Integrate & configure LLM capabilities in Cloud & Platform** | `src/components/CloudLlmArch.tsx`<br>`server.ts` (`getGenAI()`)                  | Multi-cloud routing matrix (NowLLM, Gemini, Bedrock, OpenAI) and AST semantic chunking.               |
+| **MCP & A2A multi-agent interoperability**                     | `src/components/McpA2aLab.tsx`<br>`server.ts` (`/api/mcp/call`)                  | JSON-RPC 2.0 tool execution and 4-step cryptographic A2A trust delegation with loop prevention.       |
+| **OpenTelemetry for AI system observability**                  | `src/components/OpenTelemetrySuite.tsx`<br>`server.ts` (`otelTraceHistory`)      | GenAI semantic spans, waterfall flamegraph, token cost attribution, and collector YAML.               |
+| **Mentoring, technical direction & architecture defense**      | `src/components/StaffLeadership.tsx`<br>`server.ts` (`/api/interview/ask`)       | Enterprise RFC-2026-08 authorship, verified ServiceNow certifications, and interactive Q&A simulator. |
 
 ---
 

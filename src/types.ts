@@ -1,18 +1,18 @@
 export type ActiveTab =
-  | "agent-studio"
-  | "control-tower"
-  | "skill-kit-fabric"
-  | "mcp-a2a"
-  | "opentelemetry"
-  | "llm-architecture"
-  | "staff-leadership";
+  | 'agent-studio'
+  | 'control-tower'
+  | 'skill-kit-fabric'
+  | 'mcp-a2a'
+  | 'opentelemetry'
+  | 'llm-architecture'
+  | 'staff-leadership';
 
 export interface AgentNode {
   id: string;
   name: string;
   role: string;
-  type: "router" | "diagnostics" | "data-fabric" | "governance" | "remediation";
-  status: "idle" | "running" | "completed" | "waiting_approval";
+  type: 'router' | 'diagnostics' | 'data-fabric' | 'governance' | 'remediation';
+  status: 'idle' | 'running' | 'completed' | 'waiting_approval';
   confidence: number;
   model: string;
   tools: string[];
@@ -47,10 +47,10 @@ export interface CmdbCI {
 export interface GovernancePolicy {
   id: string;
   name: string;
-  category: "Security" | "Responsible AI" | "Financial" | "Operational";
+  category: 'Security' | 'Responsible AI' | 'Financial' | 'Operational';
   rule: string;
-  enforcement: "Block" | "Redact & Warn" | "HITL Gate" | "Audit Only";
-  status: "Active" | "Simulated";
+  enforcement: 'Block' | 'Redact & Warn' | 'HITL Gate' | 'Audit Only';
+  status: 'Active' | 'Simulated';
   violationCount: number;
   description: string;
 }
@@ -58,7 +58,7 @@ export interface GovernancePolicy {
 export interface SkillKitDefinition {
   id: string;
   name: string;
-  category: "ITSM" | "ITOM" | "Security" | "Platform";
+  category: 'ITSM' | 'ITOM' | 'Security' | 'Platform';
   inputs: { name: string; type: string; description: string }[];
   targetTable: string;
   systemPrompt: string;
@@ -70,7 +70,7 @@ export interface SkillKitDefinition {
 export interface McpToolItem {
   name: string;
   description: string;
-  category: "ServiceNow" | "Cloud Infrastructure" | "Identity & IAM";
+  category: 'ServiceNow' | 'Cloud Infrastructure' | 'Identity & IAM';
   inputSchema: {
     type: string;
     properties: Record<string, any>;
@@ -82,9 +82,9 @@ export interface McpToolItem {
 export interface OTelSpan {
   spanId: string;
   name: string;
-  kind: "SERVER" | "CLIENT" | "INTERNAL";
+  kind: 'SERVER' | 'CLIENT' | 'INTERNAL';
   durationMs: number;
-  status: "OK" | "ERROR";
+  status: 'OK' | 'ERROR';
   attributes?: Record<string, any>;
   events?: { name: string; time: number }[];
 }
@@ -102,7 +102,7 @@ export interface OTelTrace {
 export interface InterviewDefenseScenario {
   id: string;
   title: string;
-  category: "Architecture" | "Governance" | "Scalability" | "Multi-Agent" | "Mentorship";
+  category: 'Architecture' | 'Governance' | 'Scalability' | 'Multi-Agent' | 'Mentorship';
   question: string;
   staffLevelKeyPoints: string[];
   suggestedAnswer: string;

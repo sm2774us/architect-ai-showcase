@@ -3,6 +3,12 @@
 
 pre-commit:
   commands:
+    format-check:
+      glob: '*'
+      run: npm run format:check
+    lint:
+      glob: '*'
+      run: npm run lint
     unit-tests:
-      glob: "*"
+      glob: '*'
       run: npm run test:unit

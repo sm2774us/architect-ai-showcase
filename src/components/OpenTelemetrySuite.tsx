@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Activity,
   BarChart3,
@@ -10,8 +10,8 @@ import {
   Zap,
   Info,
   ExternalLink,
-} from "lucide-react";
-import { OTelTrace, OTelSpan } from "../types";
+} from 'lucide-react';
+import { OTelTrace, OTelSpan } from '../types';
 
 interface OpenTelemetrySuiteProps {
   traces: OTelTrace[];
@@ -19,71 +19,73 @@ interface OpenTelemetrySuiteProps {
 
 export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }) => {
   const currentTrace = traces[0] || {
-    traceId: "trace_sn_0918_p1_outage",
+    traceId: 'trace_sn_0918_p1_outage',
     timestamp: new Date().toISOString(),
-    serviceName: "servicenow-ai-agent-studio",
-    operationName: "agentic.incident_remediation.workflow",
+    serviceName: 'servicenow-ai-agent-studio',
+    operationName: 'agentic.incident_remediation.workflow',
     durationMs: 1245,
     attributes: {
-      "gen_ai.system": "ServiceNow NowLLM / Google Gemini Hybrid Gateway",
-      "gen_ai.request.model": "gemini-3.8-flash (via ServiceNow Cloud Gateway)",
-      "gen_ai.usage.prompt_tokens": 840,
-      "gen_ai.usage.completion_tokens": 420,
-      "gen_ai.usage.total_tokens": 1260,
-      "servicenow.data_fabric.connected_tables": ["incident", "cmdb_ci", "change_request"],
-      "governance.control_tower.policy_checks": "PASSED",
+      'gen_ai.system': 'ServiceNow NowLLM / Google Gemini Hybrid Gateway',
+      'gen_ai.request.model': 'gemini-3.8-flash (via ServiceNow Cloud Gateway)',
+      'gen_ai.usage.prompt_tokens': 840,
+      'gen_ai.usage.completion_tokens': 420,
+      'gen_ai.usage.total_tokens': 1260,
+      'servicenow.data_fabric.connected_tables': ['incident', 'cmdb_ci', 'change_request'],
+      'governance.control_tower.policy_checks': 'PASSED',
     },
     spans: [
       {
-        spanId: "span_root_001",
-        name: "agent.orchestrator.triage",
-        kind: "SERVER",
+        spanId: 'span_root_001',
+        name: 'agent.orchestrator.triage',
+        kind: 'SERVER',
         durationMs: 1245,
-        status: "OK",
-        attributes: { "rpc.system": "grpc", "net.peer.name": "servicenow-agent-studio" },
+        status: 'OK',
+        attributes: { 'rpc.system': 'grpc', 'net.peer.name': 'servicenow-agent-studio' },
       },
       {
-        spanId: "span_fabric_002",
-        name: "workflow_data_fabric.cmdb_vector_search",
-        kind: "CLIENT",
+        spanId: 'span_fabric_002',
+        name: 'workflow_data_fabric.cmdb_vector_search',
+        kind: 'CLIENT',
         durationMs: 198,
-        status: "OK",
-        attributes: { "db.system": "ServiceNow GlideRecord + Vector Fabric", "cmdb.ci_count": 4 },
+        status: 'OK',
+        attributes: { 'db.system': 'ServiceNow GlideRecord + Vector Fabric', 'cmdb.ci_count': 4 },
       },
       {
-        spanId: "span_llm_003",
-        name: "llm.generate_content",
-        kind: "INTERNAL",
+        spanId: 'span_llm_003',
+        name: 'llm.generate_content',
+        kind: 'INTERNAL',
         durationMs: 460,
-        status: "OK",
+        status: 'OK',
         attributes: {
-          "gen_ai.system": "GoogleGenAI",
-          "gen_ai.request.model": "gemini-3.8-flash",
-          "gen_ai.usage.prompt_tokens": 840,
-          "gen_ai.usage.completion_tokens": 420,
+          'gen_ai.system': 'GoogleGenAI',
+          'gen_ai.request.model': 'gemini-3.8-flash',
+          'gen_ai.usage.prompt_tokens': 840,
+          'gen_ai.usage.completion_tokens': 420,
         },
       },
       {
-        spanId: "span_mcp_004",
-        name: "mcp.tool_call.aws_cloudwatch_query_metrics",
-        kind: "CLIENT",
+        spanId: 'span_mcp_004',
+        name: 'mcp.tool_call.aws_cloudwatch_query_metrics',
+        kind: 'CLIENT',
         durationMs: 310,
-        status: "OK",
-        attributes: { "mcp.tool.name": "aws_cloudwatch_query_metrics", "rpc.method": "tools/call" },
+        status: 'OK',
+        attributes: { 'mcp.tool.name': 'aws_cloudwatch_query_metrics', 'rpc.method': 'tools/call' },
       },
       {
-        spanId: "span_ct_005",
-        name: "ai_control_tower.guardrail_evaluation",
-        kind: "INTERNAL",
+        spanId: 'span_ct_005',
+        name: 'ai_control_tower.guardrail_evaluation',
+        kind: 'INTERNAL',
         durationMs: 85,
-        status: "OK",
-        attributes: { "policy.pii_redacted": false, "policy.hitl_enforced": true },
+        status: 'OK',
+        attributes: { 'policy.pii_redacted': false, 'policy.hitl_enforced': true },
       },
     ],
   };
 
   const [selectedSpan, setSelectedSpan] = useState<OTelSpan>(currentTrace.spans[0]);
-  const [activeOtelTab, setActiveOtelTab] = useState<"waterfall" | "metrics" | "collector-yaml">("waterfall");
+  const [activeOtelTab, setActiveOtelTab] = useState<'waterfall' | 'metrics' | 'collector-yaml'>(
+    'waterfall'
+  );
 
   return (
     <div className="space-y-6">
@@ -103,32 +105,39 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
               Distributed AI System Observability & Tracing
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
-              Production telemetry engineering for agentic systems: capturing token economics, Time to First Token
-              (TTFT), inter-agent span handoffs, and AI Control Tower policy intervention latencies.
+              Production telemetry engineering for agentic systems: capturing token economics, Time
+              to First Token (TTFT), inter-agent span handoffs, and AI Control Tower policy
+              intervention latencies.
             </p>
           </div>
 
           <div className="flex border border-slate-800 rounded-lg p-1 bg-slate-950 text-xs">
             <button
-              onClick={() => setActiveOtelTab("waterfall")}
+              onClick={() => setActiveOtelTab('waterfall')}
               className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                activeOtelTab === "waterfall" ? "bg-purple-600 text-white font-bold" : "text-slate-400 hover:text-slate-200"
+                activeOtelTab === 'waterfall'
+                  ? 'bg-purple-600 text-white font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               Trace Waterfall
             </button>
             <button
-              onClick={() => setActiveOtelTab("metrics")}
+              onClick={() => setActiveOtelTab('metrics')}
               className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                activeOtelTab === "metrics" ? "bg-purple-600 text-white font-bold" : "text-slate-400 hover:text-slate-200"
+                activeOtelTab === 'metrics'
+                  ? 'bg-purple-600 text-white font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               GenAI Metrics
             </button>
             <button
-              onClick={() => setActiveOtelTab("collector-yaml")}
+              onClick={() => setActiveOtelTab('collector-yaml')}
               className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                activeOtelTab === "collector-yaml" ? "bg-purple-600 text-white font-bold" : "text-slate-400 hover:text-slate-200"
+                activeOtelTab === 'collector-yaml'
+                  ? 'bg-purple-600 text-white font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               OTel Collector Config
@@ -138,7 +147,7 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
       </div>
 
       {/* SUBTAB 1: TRACE WATERFALL */}
-      {activeOtelTab === "waterfall" && (
+      {activeOtelTab === 'waterfall' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Waterfall Chart */}
           <div className="lg:col-span-7 space-y-4">
@@ -164,11 +173,13 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
                   const widthPercent = Math.max(12, (span.durationMs / maxDuration) * 100);
                   const isSelected = selectedSpan?.spanId === span.spanId;
 
-                  let colorClass = "bg-purple-500/80 hover:bg-purple-400";
-                  if (span.name.includes("fabric")) colorClass = "bg-emerald-500/80 hover:bg-emerald-400";
-                  if (span.name.includes("llm")) colorClass = "bg-cyan-500/80 hover:bg-cyan-400";
-                  if (span.name.includes("mcp")) colorClass = "bg-amber-500/80 hover:bg-amber-400";
-                  if (span.name.includes("control_tower")) colorClass = "bg-rose-500/80 hover:bg-rose-400";
+                  let colorClass = 'bg-purple-500/80 hover:bg-purple-400';
+                  if (span.name.includes('fabric'))
+                    colorClass = 'bg-emerald-500/80 hover:bg-emerald-400';
+                  if (span.name.includes('llm')) colorClass = 'bg-cyan-500/80 hover:bg-cyan-400';
+                  if (span.name.includes('mcp')) colorClass = 'bg-amber-500/80 hover:bg-amber-400';
+                  if (span.name.includes('control_tower'))
+                    colorClass = 'bg-rose-500/80 hover:bg-rose-400';
 
                   return (
                     <div
@@ -176,8 +187,8 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
                       onClick={() => setSelectedSpan(span)}
                       className={`p-2.5 rounded-lg border cursor-pointer transition-all ${
                         isSelected
-                          ? "bg-slate-800 border-purple-500/60 shadow-md"
-                          : "bg-slate-950 border-slate-800/80 hover:border-slate-700"
+                          ? 'bg-slate-800 border-purple-500/60 shadow-md'
+                          : 'bg-slate-950 border-slate-800/80 hover:border-slate-700'
                       }`}
                     >
                       <div className="flex items-center justify-between text-xs mb-1.5">
@@ -187,7 +198,9 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
                           </span>
                           <span>{span.name}</span>
                         </span>
-                        <span className="text-[11px] font-mono text-slate-400">{span.durationMs}ms</span>
+                        <span className="text-[11px] font-mono text-slate-400">
+                          {span.durationMs}ms
+                        </span>
                       </div>
 
                       {/* Visual Bar */}
@@ -233,7 +246,7 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
                       <div key={key} className="flex justify-between items-start text-[11px] gap-2">
                         <span className="text-purple-300">{key}:</span>
                         <span className="text-emerald-400 font-semibold text-right break-all">
-                          {typeof val === "object" ? JSON.stringify(val) : String(val)}
+                          {typeof val === 'object' ? JSON.stringify(val) : String(val)}
                         </span>
                       </div>
                     ))}
@@ -258,7 +271,7 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
       )}
 
       {/* SUBTAB 2: GENAI METRICS DASHBOARD */}
-      {activeOtelTab === "metrics" && (
+      {activeOtelTab === 'metrics' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-1">
             <span className="text-xs text-slate-400 font-medium">Time to First Token (TTFT)</span>
@@ -303,7 +316,7 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
       )}
 
       {/* SUBTAB 3: OTEL COLLECTOR CONFIG */}
-      {activeOtelTab === "collector-yaml" && (
+      {activeOtelTab === 'collector-yaml' && (
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-800">
             <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-2">
@@ -314,7 +327,7 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
           </div>
 
           <pre className="p-4 bg-slate-950 rounded-lg border border-slate-800 text-xs font-mono text-purple-300 overflow-x-auto leading-relaxed">
-{`# OpenTelemetry Collector Configuration for ServiceNow AI System Observability
+            {`# OpenTelemetry Collector Configuration for ServiceNow AI System Observability
 receivers:
   otlp:
     protocols:

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Cpu,
   ShieldCheck,
@@ -11,8 +11,8 @@ import {
   Server,
   ExternalLink,
   CheckCircle2,
-} from "lucide-react";
-import { ActiveTab } from "../types";
+} from 'lucide-react';
+import { ActiveTab } from '../types';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -29,46 +29,46 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const navItems = [
     {
-      id: "agent-studio" as ActiveTab,
-      label: "AI Agent Studio",
+      id: 'agent-studio' as ActiveTab,
+      label: 'AI Agent Studio',
       icon: Cpu,
-      badge: "Core",
+      badge: 'Core',
     },
     {
-      id: "control-tower" as ActiveTab,
-      label: "AI Control Tower",
+      id: 'control-tower' as ActiveTab,
+      label: 'AI Control Tower',
       icon: ShieldCheck,
-      badge: "Governance",
+      badge: 'Governance',
     },
     {
-      id: "skill-kit-fabric" as ActiveTab,
-      label: "Skill Kit & Data Fabric",
+      id: 'skill-kit-fabric' as ActiveTab,
+      label: 'Skill Kit & Data Fabric',
       icon: Workflow,
-      badge: "Platform",
+      badge: 'Platform',
     },
     {
-      id: "mcp-a2a" as ActiveTab,
-      label: "MCP & A2A Protocol",
+      id: 'mcp-a2a' as ActiveTab,
+      label: 'MCP & A2A Protocol',
       icon: Network,
-      badge: "Multi-Agent",
+      badge: 'Multi-Agent',
     },
     {
-      id: "opentelemetry" as ActiveTab,
-      label: "OpenTelemetry (OTel)",
+      id: 'opentelemetry' as ActiveTab,
+      label: 'OpenTelemetry (OTel)',
       icon: Activity,
-      badge: "Observability",
+      badge: 'Observability',
     },
     {
-      id: "llm-architecture" as ActiveTab,
-      label: "LLM & Cloud Hybrid",
+      id: 'llm-architecture' as ActiveTab,
+      label: 'LLM & Cloud Hybrid',
       icon: Layers,
-      badge: "AWS/Azure/GCP",
+      badge: 'AWS/Azure/GCP',
     },
     {
-      id: "staff-leadership" as ActiveTab,
-      label: "Staff AI Leadership & Defense",
+      id: 'staff-leadership' as ActiveTab,
+      label: 'Staff AI Leadership & Defense',
       icon: Award,
-      badge: "8+ YOE / Certified",
+      badge: '8+ YOE / Certified',
     },
   ];
 
@@ -79,10 +79,14 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-2 font-bold tracking-wider text-emerald-400">
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse inline-block"></span>
-            <span className="uppercase text-[11px] tracking-widest text-emerald-400">ServiceNow Enterprise</span>
+            <span className="uppercase text-[11px] tracking-widest text-emerald-400">
+              ServiceNow Enterprise
+            </span>
           </div>
           <span className="text-slate-500">|</span>
-          <span className="text-slate-300 font-medium">Now Platform Xanadu • AI Native Architecture</span>
+          <span className="text-slate-300 font-medium">
+            Now Platform Xanadu • AI Native Architecture
+          </span>
           <span className="hidden md:inline-block px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/30 text-emerald-300 font-mono text-[10px]">
             INSTANCE: sn-prod-ai-studio-01.service-now.com
           </span>
@@ -117,7 +121,8 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </div>
               <p className="text-xs text-slate-400">
-                Architectural Demonstration of AI Agent Studio, Control Tower, Skill Kit, Workflow Data Fabric, MCP & OTel
+                Architectural Demonstration of AI Agent Studio, Control Tower, Skill Kit, Workflow
+                Data Fabric, MCP & OTel
               </p>
             </div>
           </div>
@@ -131,12 +136,18 @@ export const Header: React.FC<HeaderProps> = ({
             disabled={isExecutingDemo}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-xs font-semibold shadow-md transition-all ${
               isExecutingDemo
-                ? "bg-slate-800 text-slate-400 cursor-not-allowed border border-slate-700"
-                : "bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold hover:shadow-emerald-500/25 active:scale-95"
+                ? 'bg-slate-800 text-slate-400 cursor-not-allowed border border-slate-700'
+                : 'bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold hover:shadow-emerald-500/25 active:scale-95'
             }`}
           >
-            <Sparkles className={`w-4 h-4 ${isExecutingDemo ? "animate-spin text-emerald-400" : "text-slate-950"}`} />
-            <span>{isExecutingDemo ? "Orchestrating P1 Autonomous Triage..." : "Simulate P1 Agentic Remediation"}</span>
+            <Sparkles
+              className={`w-4 h-4 ${isExecutingDemo ? 'animate-spin text-emerald-400' : 'text-slate-950'}`}
+            />
+            <span>
+              {isExecutingDemo
+                ? 'Orchestrating P1 Autonomous Triage...'
+                : 'Simulate P1 Agentic Remediation'}
+            </span>
           </button>
         </div>
       </div>
@@ -154,17 +165,17 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setActiveTab(item.id)}
                 className={`flex items-center space-x-2 px-3.5 py-2.5 border-b-2 text-xs font-medium whitespace-nowrap transition-colors duration-150 ${
                   isActive
-                    ? "border-emerald-400 text-emerald-400 bg-emerald-500/5 font-semibold"
-                    : "border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700"
+                    ? 'border-emerald-400 text-emerald-400 bg-emerald-500/5 font-semibold'
+                    : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? "text-emerald-400" : "text-slate-400"}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-400' : 'text-slate-400'}`} />
                 <span>{item.label}</span>
                 <span
                   className={`text-[9px] px-1.5 py-0.5 rounded ${
                     isActive
-                      ? "bg-emerald-400/20 text-emerald-300 font-mono"
-                      : "bg-slate-800 text-slate-400 font-mono"
+                      ? 'bg-emerald-400/20 text-emerald-300 font-mono'
+                      : 'bg-slate-800 text-slate-400 font-mono'
                   }`}
                 >
                   {item.badge}

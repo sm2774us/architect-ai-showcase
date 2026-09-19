@@ -29,17 +29,29 @@ vi.mock('@google/genai', () => {
               }),
             };
           }
-          if (typeof contents === 'string' && contents.includes('You are a candidate interviewing')) {
+          if (
+            typeof contents === 'string' &&
+            contents.includes('You are a candidate interviewing')
+          ) {
             return {
               text: '### Staff AI Architectural Strategy & Defense\n\n1. Decomposed Architecture...',
             };
           }
           return {
             text: JSON.stringify({
-              rootCauseAnalysis: 'Identified cascading connection bottleneck across ingress gateway.',
+              rootCauseAnalysis:
+                'Identified cascading connection bottleneck across ingress gateway.',
               agentHandoffLog: [
-                { agent: 'ServiceNow Intent & Router Agent', action: 'Triage complete', status: 'COMPLETED' },
-                { agent: 'Workflow Data Fabric CMDB Agent', action: 'Graph traversed', status: 'COMPLETED' },
+                {
+                  agent: 'ServiceNow Intent & Router Agent',
+                  action: 'Triage complete',
+                  status: 'COMPLETED',
+                },
+                {
+                  agent: 'Workflow Data Fabric CMDB Agent',
+                  action: 'Graph traversed',
+                  status: 'COMPLETED',
+                },
               ],
               proposedRemediation: {
                 type: 'Emergency Change Request',
@@ -77,9 +89,7 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
 
   describe('POST /api/agents/execute', () => {
     it('executes incident workflow with default prompt and HITL unapproved', async () => {
-      const res = await request(app)
-        .post('/api/agents/execute')
-        .send({});
+      const res = await request(app).post('/api/agents/execute').send({});
 
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
@@ -91,13 +101,11 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
     });
 
     it('executes incident workflow with custom prompt and HITL approved', async () => {
-      const res = await request(app)
-        .post('/api/agents/execute')
-        .send({
-          incidentQuery: 'INC0948198: Postgres connection pool starvation',
-          selectedAgentId: 'agent-router',
-          humanInTheLoopApproval: true,
-        });
+      const res = await request(app).post('/api/agents/execute').send({
+        incidentQuery: 'INC0948198: Postgres connection pool starvation',
+        selectedAgentId: 'agent-router',
+        humanInTheLoopApproval: true,
+      });
 
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
@@ -127,12 +135,10 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
 
     it('handles AI error trigger and falls back gracefully to deterministic plan (HITL unapproved)', async () => {
       mockMode = 'error';
-      const res = await request(app)
-        .post('/api/agents/execute')
-        .send({
-          incidentQuery: 'database pool lock',
-          humanInTheLoopApproval: false,
-        });
+      const res = await request(app).post('/api/agents/execute').send({
+        incidentQuery: 'database pool lock',
+        humanInTheLoopApproval: false,
+      });
 
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
@@ -142,12 +148,10 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
 
     it('handles AI error trigger and falls back gracefully to deterministic plan (HITL approved)', async () => {
       mockMode = 'error';
-      const res = await request(app)
-        .post('/api/agents/execute')
-        .send({
-          incidentQuery: 'database pool lock',
-          humanInTheLoopApproval: true,
-        });
+      const res = await request(app).post('/api/agents/execute').send({
+        incidentQuery: 'database pool lock',
+        humanInTheLoopApproval: true,
+      });
 
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
@@ -185,7 +189,9 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
 
     it('caps otel trace history buffer at 30 traces', async () => {
       for (let i = 0; i < 32; i++) {
-        await request(app).post('/api/agents/execute').send({ incidentQuery: `Test buffer ${i}` });
+        await request(app)
+          .post('/api/agents/execute')
+          .send({ incidentQuery: `Test buffer ${i}` });
       }
 
       const res = await request(app).get('/api/otel/traces');
@@ -216,7 +222,10 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
         { text: 'User SSN: 123-45-6789', tag: 'SOCIAL_SECURITY_NUMBER' },
         { text: 'Card: 4111-2222-3333-4444', tag: 'CREDIT_CARD' },
         { text: 'AWS Key: AKIA1234567890ABCDEF', tag: 'AWS' },
-        { text: 'JWT: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c', tag: 'PRIVATE_JWT_TOKEN' },
+        {
+          text: 'JWT: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+          tag: 'PRIVATE_JWT_TOKEN',
+        },
         { text: 'Secret: password = "super_secret_pass_123"', tag: 'SERVICENOW_PASSWORDS' },
       ];
 
@@ -306,9 +315,7 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
     });
 
     it('handles empty payload gracefully with default token cap', async () => {
-      const res = await request(app)
-        .post('/api/control-tower/evaluate')
-        .send({});
+      const res = await request(app).post('/api/control-tower/evaluate').send({});
 
       expect(res.status).toBe(200);
       expect(res.body.passed).toBe(true);
@@ -378,11 +385,9 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
     });
 
     it('executes servicenow_query_cmdb with omitted arguments payload', async () => {
-      const res = await request(app)
-        .post('/api/mcp/call')
-        .send({
-          toolName: 'servicenow_query_cmdb',
-        });
+      const res = await request(app).post('/api/mcp/call').send({
+        toolName: 'servicenow_query_cmdb',
+      });
 
       expect(res.status).toBe(200);
       expect(res.body.result.content[0].text).toContain('prod-customer-portal-db-01');
@@ -408,11 +413,9 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
     });
 
     it('executes servicenow_create_change_request with empty arguments fallback', async () => {
-      const res = await request(app)
-        .post('/api/mcp/call')
-        .send({
-          toolName: 'servicenow_create_change_request',
-        });
+      const res = await request(app).post('/api/mcp/call').send({
+        toolName: 'servicenow_create_change_request',
+      });
 
       expect(res.status).toBe(200);
       const parsed = JSON.parse(res.body.result.content[0].text);
@@ -440,11 +443,9 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
     });
 
     it('executes aws_cloudwatch_query_metrics with empty arguments fallback', async () => {
-      const res = await request(app)
-        .post('/api/mcp/call')
-        .send({
-          toolName: 'aws_cloudwatch_query_metrics',
-        });
+      const res = await request(app).post('/api/mcp/call').send({
+        toolName: 'aws_cloudwatch_query_metrics',
+      });
 
       expect(res.status).toBe(200);
       const parsed = JSON.parse(res.body.result.content[0].text);
@@ -461,7 +462,9 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
         });
 
       expect(res.status).toBe(200);
-      expect(res.body.result.content[0].text).toContain('Tool custom_unregistered_tool executed successfully');
+      expect(res.body.result.content[0].text).toContain(
+        'Tool custom_unregistered_tool executed successfully'
+      );
     });
   });
 
@@ -476,12 +479,10 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
 
   describe('POST /api/interview/ask', () => {
     it('returns structured staff engineer architectural answer with Gemini mock', async () => {
-      const res = await request(app)
-        .post('/api/interview/ask')
-        .send({
-          question: 'How do you design multi-agent coordination with MCP and A2A?',
-          category: 'Enterprise AI Architecture',
-        });
+      const res = await request(app).post('/api/interview/ask').send({
+        question: 'How do you design multi-agent coordination with MCP and A2A?',
+        category: 'Enterprise AI Architecture',
+      });
 
       expect(res.status).toBe(200);
       expect(res.body.answer).toBeDefined();
@@ -489,11 +490,9 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
     });
 
     it('handles interview question without category gracefully', async () => {
-      const res = await request(app)
-        .post('/api/interview/ask')
-        .send({
-          question: 'Explain token budget governance.',
-        });
+      const res = await request(app).post('/api/interview/ask').send({
+        question: 'Explain token budget governance.',
+      });
 
       expect(res.status).toBe(200);
       expect(res.body.answer).toBeDefined();
@@ -502,11 +501,9 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
 
     it('falls back to deterministic staff defense when error occurs', async () => {
       mockMode = 'error';
-      const res = await request(app)
-        .post('/api/interview/ask')
-        .send({
-          question: 'fail model call',
-        });
+      const res = await request(app).post('/api/interview/ask').send({
+        question: 'fail model call',
+      });
 
       expect(res.status).toBe(200);
       expect(res.body.answer).toContain('Staff AI Architectural Strategy & Defense');
@@ -518,11 +515,9 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
       delete process.env.GEMINI_API_KEY;
       setGenAIClient(null);
 
-      const res = await request(app)
-        .post('/api/interview/ask')
-        .send({
-          question: 'What happens when no Gemini key is provided?',
-        });
+      const res = await request(app).post('/api/interview/ask').send({
+        question: 'What happens when no Gemini key is provided?',
+      });
 
       expect(res.status).toBe(200);
       expect(res.body.liveAi).toBe(false);

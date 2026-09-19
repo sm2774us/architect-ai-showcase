@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Layers,
   Cloud,
@@ -11,10 +11,12 @@ import {
   CheckCircle2,
   Sliders,
   ExternalLink,
-} from "lucide-react";
+} from 'lucide-react';
 
 export const CloudLlmArch: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"nlp-arch" | "cloud-routing" | "scripting">("nlp-arch");
+  const [activeTab, setActiveTab] = useState<'nlp-arch' | 'cloud-routing' | 'scripting'>(
+    'nlp-arch'
+  );
 
   // Dynamic chunking simulator
   const [sampleText, setSampleText] = useState(
@@ -25,48 +27,48 @@ Step 2: Issue pg_ctl promote on replica node.
 Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
   );
 
-  const [chunkStrategy, setChunkStrategy] = useState<"semantic" | "fixed">("semantic");
+  const [chunkStrategy, setChunkStrategy] = useState<'semantic' | 'fixed'>('semantic');
 
   const chunks =
-    chunkStrategy === "semantic"
+    chunkStrategy === 'semantic'
       ? [
           {
-            title: "Header & Intent Chunk",
-            text: "KB0094182: High Availability Postgres Failover Procedure.",
+            title: 'Header & Intent Chunk',
+            text: 'KB0094182: High Availability Postgres Failover Procedure.',
             tokens: 14,
-            vectorDensity: "Dense (0.91)",
+            vectorDensity: 'Dense (0.91)',
           },
           {
-            title: "Trigger Condition Chunk",
-            text: "When primary database node in prod-customer-portal-db-01 reports replication lag > 5000ms or connection starvation...",
+            title: 'Trigger Condition Chunk',
+            text: 'When primary database node in prod-customer-portal-db-01 reports replication lag > 5000ms or connection starvation...',
             tokens: 32,
-            vectorDensity: "Dense (0.88)",
+            vectorDensity: 'Dense (0.88)',
           },
           {
-            title: "Remediation Steps Chunk",
-            text: "Step 1: Check replication slot status. Step 2: Issue pg_ctl promote. Step 3: Update ServiceNow CMDB CI.",
+            title: 'Remediation Steps Chunk',
+            text: 'Step 1: Check replication slot status. Step 2: Issue pg_ctl promote. Step 3: Update ServiceNow CMDB CI.',
             tokens: 38,
-            vectorDensity: "Dense (0.94)",
+            vectorDensity: 'Dense (0.94)',
           },
         ]
       : [
           {
-            title: "Fixed Chunk 1 (Tokens 0-25)",
+            title: 'Fixed Chunk 1 (Tokens 0-25)',
             text: sampleText.substring(0, 110),
             tokens: 25,
-            vectorDensity: "Diluted (0.68)",
+            vectorDensity: 'Diluted (0.68)',
           },
           {
-            title: "Fixed Chunk 2 (Tokens 25-50)",
+            title: 'Fixed Chunk 2 (Tokens 25-50)',
             text: sampleText.substring(110, 220),
             tokens: 25,
-            vectorDensity: "Diluted (0.71)",
+            vectorDensity: 'Diluted (0.71)',
           },
           {
-            title: "Fixed Chunk 3 (Tokens 50-75)",
+            title: 'Fixed Chunk 3 (Tokens 50-75)',
             text: sampleText.substring(220),
             tokens: 22,
-            vectorDensity: "Diluted (0.64)",
+            vectorDensity: 'Diluted (0.64)',
           },
         ];
 
@@ -80,42 +82,47 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
               <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
                 Staff AI Systems Engineering
               </span>
-              <span className="text-xs text-slate-400">NLP • LLM Architectures • Cloud & Platform Integration</span>
+              <span className="text-xs text-slate-400">
+                NLP • LLM Architectures • Cloud & Platform Integration
+              </span>
             </div>
             <h2 className="text-xl font-bold text-white mt-1">
               LLM Architectures & Multi-Cloud Hybrid Routing
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
-              Demonstrating mastery of modern transformer attention, vector search chunking, semantic retrieval, and
-              hybrid cloud routing across ServiceNow NowLLM, Google Cloud Vertex, AWS Bedrock, and Azure OpenAI.
+              Demonstrating mastery of modern transformer attention, vector search chunking,
+              semantic retrieval, and hybrid cloud routing across ServiceNow NowLLM, Google Cloud
+              Vertex, AWS Bedrock, and Azure OpenAI.
             </p>
           </div>
 
           <div className="flex border border-slate-800 rounded-lg p-1 bg-slate-950 text-xs">
             <button
-              onClick={() => setActiveTab("nlp-arch")}
+              onClick={() => setActiveTab('nlp-arch')}
               className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                activeTab === "nlp-arch" ? "bg-cyan-600 text-slate-950 font-bold" : "text-slate-400 hover:text-slate-200"
+                activeTab === 'nlp-arch'
+                  ? 'bg-cyan-600 text-slate-950 font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               NLP & Vector Search
             </button>
             <button
-              onClick={() => setActiveTab("cloud-routing")}
+              onClick={() => setActiveTab('cloud-routing')}
               className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                activeTab === "cloud-routing"
-                  ? "bg-cyan-600 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-slate-200"
+                activeTab === 'cloud-routing'
+                  ? 'bg-cyan-600 text-slate-950 font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               Hybrid Cloud Router
             </button>
             <button
-              onClick={() => setActiveTab("scripting")}
+              onClick={() => setActiveTab('scripting')}
               className={`px-3 py-1.5 rounded-md font-semibold transition-all ${
-                activeTab === "scripting"
-                  ? "bg-cyan-600 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-slate-200"
+                activeTab === 'scripting'
+                  ? 'bg-cyan-600 text-slate-950 font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               JS & Python Integrations
@@ -125,7 +132,7 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
       </div>
 
       {/* SUBTAB 1: NLP & VECTOR SEARCH */}
-      {activeTab === "nlp-arch" && (
+      {activeTab === 'nlp-arch' && (
         <div className="space-y-5">
           {/* Conceptual Architecture Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -135,8 +142,9 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
                 <span>Modern Transformer Architecture</span>
               </div>
               <p className="text-[11px] text-slate-300 leading-relaxed">
-                Expertise in Multi-Head Self-Attention, Rotary Position Embeddings (RoPE), KV-Caching for multi-turn
-                agent dialogues, and Grouped Query Attention (GQA) used in modern enterprise LLMs.
+                Expertise in Multi-Head Self-Attention, Rotary Position Embeddings (RoPE),
+                KV-Caching for multi-turn agent dialogues, and Grouped Query Attention (GQA) used in
+                modern enterprise LLMs.
               </p>
             </div>
 
@@ -146,8 +154,8 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
                 <span>Hybrid Vector Search (BM25 + Dense)</span>
               </div>
               <p className="text-[11px] text-slate-300 leading-relaxed">
-                Combining sparse lexical matching (BM25 for exact ServiceNow error codes and CI names) with dense vector
-                cosine similarity to prevent hallucinated entity mapping.
+                Combining sparse lexical matching (BM25 for exact ServiceNow error codes and CI
+                names) with dense vector cosine similarity to prevent hallucinated entity mapping.
               </p>
             </div>
 
@@ -157,8 +165,9 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
                 <span>Agentic Reasoning Frameworks</span>
               </div>
               <p className="text-[11px] text-slate-300 leading-relaxed">
-                Implementation of ReAct (Reason + Act), Plan-and-Solve, and Reflexion self-correction loops with
-                deterministic termination safeguards to prevent runaway token spend.
+                Implementation of ReAct (Reason + Act), Plan-and-Solve, and Reflexion
+                self-correction loops with deterministic termination safeguards to prevent runaway
+                token spend.
               </p>
             </div>
           </div>
@@ -171,27 +180,28 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
                   RAG Vector Chunking Strategy Workbench
                 </h3>
                 <p className="text-[11px] text-slate-400">
-                  Compare how Semantic Section Chunking outperforms Fixed-Character Chunking in ServiceNow Knowledge Bases
+                  Compare how Semantic Section Chunking outperforms Fixed-Character Chunking in
+                  ServiceNow Knowledge Bases
                 </p>
               </div>
 
               <div className="flex bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs font-mono">
                 <button
-                  onClick={() => setChunkStrategy("semantic")}
+                  onClick={() => setChunkStrategy('semantic')}
                   className={`px-3 py-1 rounded transition-all ${
-                    chunkStrategy === "semantic"
-                      ? "bg-emerald-500 text-slate-950 font-bold"
-                      : "text-slate-400 hover:text-white"
+                    chunkStrategy === 'semantic'
+                      ? 'bg-emerald-500 text-slate-950 font-bold'
+                      : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   Semantic AST Chunking
                 </button>
                 <button
-                  onClick={() => setChunkStrategy("fixed")}
+                  onClick={() => setChunkStrategy('fixed')}
                   className={`px-3 py-1 rounded transition-all ${
-                    chunkStrategy === "fixed"
-                      ? "bg-emerald-500 text-slate-950 font-bold"
-                      : "text-slate-400 hover:text-white"
+                    chunkStrategy === 'fixed'
+                      ? 'bg-emerald-500 text-slate-950 font-bold'
+                      : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   Fixed 25-Token Chunking
@@ -226,14 +236,15 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
       )}
 
       {/* SUBTAB 2: HYBRID CLOUD ROUTER */}
-      {activeTab === "cloud-routing" && (
+      {activeTab === 'cloud-routing' && (
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
           <div className="pb-3 border-b border-slate-800">
             <h3 className="text-sm font-bold text-white">
               Enterprise Multi-Cloud LLM Routing Matrix
             </h3>
             <p className="text-[11px] text-slate-400">
-              Architected to route enterprise requests by sensitivity, latency tolerance, and reasoning complexity
+              Architected to route enterprise requests by sensitivity, latency tolerance, and
+              reasoning complexity
             </p>
           </div>
 
@@ -247,7 +258,8 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
                 </span>
               </div>
               <p className="text-[11px] text-slate-300">
-                Fine-tuned specifically on IT, HR, and CSM domain ontologies. Zero data egress from ServiceNow instance.
+                Fine-tuned specifically on IT, HR, and CSM domain ontologies. Zero data egress from
+                ServiceNow instance.
               </p>
               <div className="pt-2 border-t border-slate-800 space-y-1 text-[10px] text-slate-400 font-mono">
                 <div>P95 Latency: &lt; 160ms</div>
@@ -265,7 +277,8 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
                 </span>
               </div>
               <p className="text-[11px] text-slate-300">
-                Ultra-fast multimodal reasoning, long context window (1M+ tokens), and JSON schema validation.
+                Ultra-fast multimodal reasoning, long context window (1M+ tokens), and JSON schema
+                validation.
               </p>
               <div className="pt-2 border-t border-slate-800 space-y-1 text-[10px] text-slate-400 font-mono">
                 <div>P95 Latency: ~420ms</div>
@@ -283,7 +296,8 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
                 </span>
               </div>
               <p className="text-[11px] text-slate-300">
-                Benchmark leader in complex tool execution, multi-agent arbitration, and high-assurance code generation.
+                Benchmark leader in complex tool execution, multi-agent arbitration, and
+                high-assurance code generation.
               </p>
               <div className="pt-2 border-t border-slate-800 space-y-1 text-[10px] text-slate-400 font-mono">
                 <div>P95 Latency: ~680ms</div>
@@ -301,7 +315,8 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
                 </span>
               </div>
               <p className="text-[11px] text-slate-300">
-                Enterprise compliance with FedRAMP High, Microsoft Entra ID authentication, and PrivateLink peering.
+                Enterprise compliance with FedRAMP High, Microsoft Entra ID authentication, and
+                PrivateLink peering.
               </p>
               <div className="pt-2 border-t border-slate-800 space-y-1 text-[10px] text-slate-400 font-mono">
                 <div>P95 Latency: ~510ms</div>
@@ -314,7 +329,7 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
       )}
 
       {/* SUBTAB 3: SCRIPTING & INTEGRATION PLAYGROUND */}
-      {activeTab === "scripting" && (
+      {activeTab === 'scripting' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* ServiceNow JavaScript */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
@@ -327,7 +342,7 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
             </div>
 
             <pre className="p-3.5 bg-slate-950 rounded-lg border border-slate-800 text-xs font-mono text-emerald-300 overflow-x-auto max-h-72 leading-relaxed">
-{`// Production Script Include: CloudLLMGateway
+              {`// Production Script Include: CloudLLMGateway
 var CloudLLMGateway = Class.create();
 CloudLLMGateway.prototype = {
   initialize: function() {
@@ -370,7 +385,7 @@ CloudLLMGateway.prototype = {
             </div>
 
             <pre className="p-3.5 bg-slate-950 rounded-lg border border-slate-800 text-xs font-mono text-cyan-300 overflow-x-auto max-h-72 leading-relaxed">
-{`# Python 3.11+ Cloud Microservice for ServiceNow MCP Adapter
+              {`# Python 3.11+ Cloud Microservice for ServiceNow MCP Adapter
 from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel
 from opentelemetry import trace
