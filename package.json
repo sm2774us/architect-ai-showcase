@@ -29,6 +29,7 @@
     "motion": "^12.23.24"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@types/express": "^4.17.21",
