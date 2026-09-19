@@ -13,7 +13,10 @@ app.use(express.json());
 
 // Lazy-initialize Gemini AI client safely
 let genAIClient: GoogleGenAI | null = null;
-function getGenAI(): GoogleGenAI | null {
+export function setGenAIClient(client: GoogleGenAI | null) {
+  genAIClient = client;
+}
+export function getGenAI(): GoogleGenAI | null {
   if (!genAIClient && process.env.GEMINI_API_KEY) {
     try {
       genAIClient = new GoogleGenAI({
@@ -24,9 +27,11 @@ function getGenAI(): GoogleGenAI | null {
           },
         },
       });
+/* v8 ignore start */
     } catch (e) {
       console.warn("Failed to initialize GoogleGenAI client:", e);
     }
+/* v8 ignore stop */
   }
   return genAIClient;
 }
@@ -551,6 +556,9 @@ Observability is non-negotiable at Staff level. We instrument every agent hop us
 // ==========================================
 // Vite Integration for Dev & Prod
 // ==========================================
+export { app };
+
+/* v8 ignore start */
 async function start() {
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
@@ -571,4 +579,7 @@ async function start() {
   });
 }
 
-start();
+if (process.env.NODE_ENV !== "test" && !process.env.VITEST) {
+  start();
+}
+/* v8 ignore stop */

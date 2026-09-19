@@ -1,0 +1,8 @@
+# Lefthook configuration
+# Modern, lightweight alternative to husky for managing Git hooks
+
+pre-commit:
+  commands:
+    unit-tests:
+      glob: "*"
+      run: npm run test:unit
