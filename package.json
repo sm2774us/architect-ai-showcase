@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js coverage test-results playwright-report",
     "lint": "tsc --noEmit",
+    "format": "prettier --write .",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "test": "vitest run",

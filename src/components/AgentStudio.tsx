@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Cpu,
   Play,
@@ -43,7 +43,14 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
   const [hitlApproved, setHitlApproved] = useState(false);
   const [activeStepTab, setActiveStepTab] = useState<'topology' | 'execution' | 'spec'>('topology');
 
+  useEffect(() => {
+    if (isExecuting || executionResult) {
+      setActiveStepTab('execution');
+    }
+  }, [isExecuting, executionResult]);
+
   const handleRun = () => {
+    setActiveStepTab('execution');
     onExecuteWorkflow(customPrompt, hitlApproved);
   };
 
@@ -212,6 +219,7 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
           <span>Multi-Agent Architecture Graph</span>
         </button>
         <button
+          id="tab-btn-execution-trace"
           onClick={() => setActiveStepTab('execution')}
           className={`pb-2 transition-colors flex items-center space-x-1.5 ${
             activeStepTab === 'execution'

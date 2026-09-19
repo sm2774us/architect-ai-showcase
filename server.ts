@@ -11,6 +11,15 @@ const PORT = 3000;
 
 app.use(express.json());
 
+// Enterprise Health check endpoint for CI/CD, Container Orchestrators, and Playwright
+app.get('/api/health', (req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    service: 'servicenow-staff-ai-platform',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Lazy-initialize Gemini AI client safely
 let genAIClient: GoogleGenAI | null = null;
 export function setGenAIClient(client: GoogleGenAI | null) {

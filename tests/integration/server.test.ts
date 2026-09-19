@@ -87,6 +87,16 @@ describe('ServiceNow Staff AI Server Integration Suite', () => {
     });
   });
 
+  describe('GET /api/health', () => {
+    it('returns healthy status and timestamp for orchestration and probes', async () => {
+      const res = await request(app).get('/api/health');
+      expect(res.status).toBe(200);
+      expect(res.body.status).toBe('ok');
+      expect(res.body.service).toBe('servicenow-staff-ai-platform');
+      expect(res.body.timestamp).toBeDefined();
+    });
+  });
+
   describe('POST /api/agents/execute', () => {
     it('executes incident workflow with default prompt and HITL unapproved', async () => {
       const res = await request(app).post('/api/agents/execute').send({});
