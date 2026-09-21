@@ -91,7 +91,7 @@ export const ControlTower: React.FC = () => {
               </span>
             </div>
             <h2 className="text-xl font-bold text-white mt-1">
-              AI Control Tower Governance Framework
+              Enterprise AI Governance &amp; AI Control Tower
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
               Led by Staff AI Engineering to enforce organizational guardrails, real-time PII

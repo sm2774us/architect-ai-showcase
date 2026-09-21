@@ -140,7 +140,10 @@ export const StaffLeadership: React.FC = () => {
           <div>
             <h3 className="text-sm font-bold text-white flex items-center space-x-2">
               <Sparkles className="w-4 h-4 text-cyan-400" />
-              <span>Interactive Staff AI Architecture Defense (Hiring Manager Sandbox)</span>
+              <span>
+                Staff AI Architect Defense Simulator &amp; Interactive Defense (Hiring Manager
+                Sandbox)
+              </span>
             </h3>
             <p className="text-[11px] text-slate-400">
               Test candidate defense of complex enterprise AI trade-offs (powered by live Gemini 3.8

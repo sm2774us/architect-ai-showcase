@@ -102,7 +102,7 @@ export const OpenTelemetrySuite: React.FC<OpenTelemetrySuiteProps> = ({ traces }
               </span>
             </div>
             <h2 className="text-xl font-bold text-white mt-1">
-              Distributed AI System Observability & Tracing
+              Distributed Tracing &amp; AI System Observability
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
               Production telemetry engineering for agentic systems: capturing token economics, Time

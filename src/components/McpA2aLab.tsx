@@ -71,7 +71,7 @@ export const McpA2aLab: React.FC = () => {
                 Multi-Agent Standards
               </span>
               <span className="text-xs text-slate-400">
-                Model Context Protocol (MCP) • Agent2Agent (A2A) Governance
+                JSON-RPC 2.0 • Agent2Agent (A2A) Governance
               </span>
             </div>
             <h2 className="text-xl font-bold text-white mt-1">
@@ -180,7 +180,7 @@ export const McpA2aLab: React.FC = () => {
               <div className="space-y-1.5 pt-2">
                 <span className="text-xs font-bold text-slate-300 flex items-center space-x-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Standard MCP Response Envelope</span>
+                  <span>Standard MCP Response Envelope (JSON-RPC 2.0 Response)</span>
                 </span>
                 <pre className="p-4 bg-slate-950 rounded-lg border border-slate-800 text-xs font-mono text-emerald-300 overflow-x-auto max-h-56">
                   {JSON.stringify(mcpResponse, null, 2)}

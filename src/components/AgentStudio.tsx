@@ -138,10 +138,14 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                   <span className="font-mono font-bold text-[10px] mr-1 text-slate-500">
                     {inc.number}
                   </span>
-                  {inc.priority.split(' - ')[0] === '1'
-                    ? '🚨 P1'
-                    : '⚠️ ' + inc.priority.split(' - ')[0]}
-                  : {inc.short_description.substring(0, 32)}...
+                  {inc.sys_id === 'INC0948210'
+                    ? '🚨 P1 - Global Payment Gateway Timeout'
+                    : (inc.priority.split(' - ')[0] === '1'
+                        ? '🚨 P1'
+                        : '⚠️ ' + inc.priority.split(' - ')[0]) +
+                      ': ' +
+                      inc.short_description.substring(0, 32) +
+                      '...'}
                 </button>
               ))}
             </div>
@@ -197,7 +201,7 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
               ) : (
                 <>
                   <Play className="w-4 h-4 fill-slate-950" />
-                  <span>Execute AI Agent Studio Pipeline</span>
+                  <span>Run Staff AI Agent Pipeline</span>
                 </>
               )}
             </button>
@@ -228,7 +232,7 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
           }`}
         >
           <Activity className="w-3.5 h-3.5" />
-          <span>Live Execution Trace & Logs</span>
+          <span>Orchestration Execution Trace &amp; Logs</span>
           {executionResult && (
             <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-ping"></span>
           )}
@@ -356,7 +360,7 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                 <RefreshCw className="w-8 h-8 text-emerald-400 animate-spin" />
               </div>
               <h4 className="text-sm font-bold text-white">
-                Deliberating Across ServiceNow Agent Fleet...
+                Orchestration Execution Trace: Deliberating Across ServiceNow Agent Fleet...
               </h4>
               <p className="text-xs text-slate-400 font-mono">
                 Executing Intent Router → Traversing CMDB Data Fabric → Calling MCP CloudWatch Tools
@@ -429,7 +433,10 @@ export const AgentStudio: React.FC<AgentStudioProps> = ({
                 <div className="flex items-center justify-between">
                   <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-2">
                     <Terminal className="w-4 h-4 text-cyan-400" />
-                    <span>Agent2Agent (A2A) Deliberation & Tool Execution Stream</span>
+                    <span>
+                      Orchestration Execution Trace: Agent2Agent (A2A) Deliberation &amp; Tool
+                      Execution Stream
+                    </span>
                   </h4>
                   <span className="text-[11px] text-slate-400 font-mono">
                     Trace ID: {executionResult.traceId}

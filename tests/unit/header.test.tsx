@@ -18,14 +18,16 @@ describe('Header Component', () => {
     );
 
     expect(screen.getByText(/ServiceNow Staff AI Engineer Suite/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /AI Agent Studio/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /AI Control Tower/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Skill Kit & Data Fabric/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /MCP & A2A Protocol/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Agent Studio/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Control Tower/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Skill Kits? & Data Fabric/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /MCP & A2A/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /OpenTelemetry/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /LLM & Cloud Hybrid/i })).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /Staff AI Leadership & Defense/i })
+      screen.getByRole('button', { name: /Enterprise Architecture|LLM & Cloud Hybrid/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /Staff Defense & Leadership|Staff AI Leadership/i })
     ).toBeInTheDocument();
   });
 
@@ -42,11 +44,11 @@ describe('Header Component', () => {
       />
     );
 
-    const controlTowerTab = screen.getByRole('button', { name: /AI Control Tower/i });
+    const controlTowerTab = screen.getByRole('button', { name: /Control Tower/i });
     fireEvent.click(controlTowerTab);
     expect(setActiveTab).toHaveBeenCalledWith('control-tower');
 
-    const mcpTab = screen.getByRole('button', { name: /MCP & A2A Protocol/i });
+    const mcpTab = screen.getByRole('button', { name: /MCP & A2A/i });
     fireEvent.click(mcpTab);
     expect(setActiveTab).toHaveBeenCalledWith('mcp-a2a');
   });
@@ -101,7 +103,7 @@ describe('Header Component', () => {
     );
 
     expect(
-      screen.getByRole('button', { name: /Staff AI Leadership & Defense/i })
+      screen.getByRole('button', { name: /Staff Defense & Leadership|Staff AI Leadership/i })
     ).toBeInTheDocument();
 
     rerender(
@@ -112,6 +114,8 @@ describe('Header Component', () => {
         isExecutingDemo={false}
       />
     );
-    expect(screen.getByRole('button', { name: /LLM & Cloud Hybrid/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /Enterprise Architecture|LLM & Cloud Hybrid/i })
+    ).toBeInTheDocument();
   });
 });

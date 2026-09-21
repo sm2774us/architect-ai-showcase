@@ -452,6 +452,19 @@ app.post('/api/control-tower/evaluate', async (req: Request, res: Response) => {
 // ==========================================
 const availableMcpTools = [
   {
+    name: 'servicenow_cmdb_lookup',
+    description:
+      'Lookup configuration items, relationships, and CI health in ServiceNow CMDB via Workflow Data Fabric',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Encoded query or CI name' },
+        limit: { type: 'number', default: 5 },
+      },
+      required: ['query'],
+    },
+  },
+  {
     name: 'servicenow_query_cmdb',
     description:
       'Search configuration items, relationships, and CI health in ServiceNow CMDB via Workflow Data Fabric',
@@ -527,7 +540,7 @@ app.get('/api/mcp/tools', (req: Request, res: Response) => {
 app.post('/api/mcp/call', async (req: Request, res: Response) => {
   const { toolName, arguments: toolArgs } = req.body;
 
-  if (toolName === 'servicenow_query_cmdb') {
+  if (toolName === 'servicenow_query_cmdb' || toolName === 'servicenow_cmdb_lookup') {
     const q = (toolArgs?.query || '').toLowerCase();
     const results = mockCMDB.filter(
       (c) =>

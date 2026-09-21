@@ -87,7 +87,7 @@ Step 3: Update ServiceNow CMDB CI operational_status to 'Failover Active'.`
               </span>
             </div>
             <h2 className="text-xl font-bold text-white mt-1">
-              LLM Architectures & Multi-Cloud Hybrid Routing
+              Multi-Tier Hybrid LLM Topology &amp; Cloud Routing
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
               Demonstrating mastery of modern transformer attention, vector search chunking,

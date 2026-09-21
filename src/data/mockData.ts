@@ -319,6 +319,21 @@ IncidentRCACorrelator.prototype = {
 
 export const mcpToolsCatalog: McpToolItem[] = [
   {
+    name: 'servicenow_cmdb_lookup',
+    description:
+      'Lookup configuration items, relationships, and CI health in ServiceNow CMDB via Workflow Data Fabric',
+    category: 'ServiceNow',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Encoded query or CI name' },
+        limit: { type: 'number', description: 'Max CIs to return' },
+      },
+      required: ['query'],
+    },
+    samplePayload: { query: 'nameLIKEk8s^operational_status=1', limit: 3 },
+  },
+  {
     name: 'servicenow_query_cmdb',
     description:
       'Search configuration items, relationships, and CI health in ServiceNow CMDB via Workflow Data Fabric',
